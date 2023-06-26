@@ -25,7 +25,7 @@ const Sidebar = ({setOpen,drawer,setDrawer}) => {
     window.location.reload()
   }
   return (
-    <div className='sidebar' style={{width: drawer ? "25%" : "5%"}}>
+    <div className='sidebar' style={{width: drawer ? "20%" : "5%"}}>
         <nav>
         <div className="title">
         {drawer && <img className='logo' src={Logo}/>}
@@ -41,19 +41,19 @@ const Sidebar = ({setOpen,drawer,setDrawer}) => {
                {drawer && t('aside.statistics')}
               </NavLink>
             </li>
-            <li>
+            {/* <li>
               <NavLink to={'/history'} onClick={() => handleId(t('aside.history'))}>
                 <img src={Ticket} alt="icon" />
                 {drawer && t('aside.history')}
                
               </NavLink>
-            </li>
-            <li>
+            </li> */}
+            {/* <li>
               <NavLink to={'/table'} onClick={() => handleId(t('aside.table'))}>
                 <img src={Idea} alt="icon" />
                 {drawer && t('aside.table')}
               </NavLink>
-            </li>
+            </li> */}
         
        
             <li>

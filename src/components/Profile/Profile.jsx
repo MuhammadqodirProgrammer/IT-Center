@@ -35,7 +35,7 @@ const Profile = () => {
     <div className='profile' onClick={handleClick} ref={ref}>
         <div className='user_image'>
             {/* {decoded?.iss} {decoded?.role} */}
-            Navruz
+            Admin
             <img src={UserImage} alt="user" />
         </div>
         {

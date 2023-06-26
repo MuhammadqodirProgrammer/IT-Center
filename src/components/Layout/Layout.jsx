@@ -8,7 +8,7 @@ const Layout = ({mode,sms,children}) => {
   return (
     <div className='layout_page' >
         <Sidebar setOpen={setOpen} drawer={drawer} setDrawer={setDrawer}/>
-        <div style={{width: drawer ? "75%" : "95%", padding: "16px",position: "relative"}}>
+        <div style={{width: drawer ? "80%" : "95%", padding: "16px",position: "relative"}}>
             <Header title={open} mode={mode} sms={sms}/>   
             {children}
         </div>

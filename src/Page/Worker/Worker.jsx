@@ -193,7 +193,7 @@ const Worker = () => {
         <form action="" className='add_user_page'>
           <div className="form_group_right" onClick={() => setOpen(true)} >
             <img src={AddIcon} alt="adda_icon" />
-            Xodim qo‘shish
+            {t("worker.w19")}
           </div>
         </form>
         <Table hover>

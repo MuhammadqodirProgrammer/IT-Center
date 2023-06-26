@@ -31,9 +31,9 @@ const Router = ({mode, sms}) => {
       <Layout mode={mode} sms={sms}>
           <Routes>
                 <Route path='/' element={<Statistic/>} /> 
-                <Route path='history' element={<History/>} />
+                {/* <Route path='history' element={<History/>} /> */}
                 <Route path='worker' element={<Worker/>} />
-                <Route path='table' element={<TablePage/>}/>
+                {/* <Route path='table' element={<TablePage/>}/> */}
                 <Route path='sections' element={<Sections/>}/>
                 <Route path='event' element={<Event/>}/>
                 <Route path='message/:id' element={<Message/>}/>
