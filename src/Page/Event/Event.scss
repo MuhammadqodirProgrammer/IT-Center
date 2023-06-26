@@ -1,0 +1,896 @@
+.event_menu {
+    .add_user_page {
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        margin: 30px 0;
+
+        .form_group_right {
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            // max-width: 200px;
+            height: 40px;
+            background: #7F73FF;
+            border: 1px solid #7F73FF;
+            border-radius: 5px;
+            gap: 10px;
+            font-style: normal;
+            font-weight: 700;
+            font-size: 20px;
+            line-height: 25px;
+            color: #FFFFFF;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    }
+
+    .add_user_modal {
+        padding: 31px 57px;
+
+        .title {
+            text-align: center;
+            margin-bottom: 30px;
+
+            h4 {
+                font-style: normal;
+                font-weight: 700;
+                font-size: 24px;
+                line-height: 30px;
+                text-align: center;
+                letter-spacing: 0.4px;
+                color: #FFFFFF;
+            }
+        }
+    }
+
+    .form_add {
+        // padding: 0 20px;
+
+        .form_control {
+            position: relative;
+            margin-bottom: 22px;
+            min-width: 450px;
+            width: 100%;
+
+            input {
+                border: 1px solid #9FA2B4;
+                border-radius: 8px;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 20px;
+                letter-spacing: 0.3px;
+                color: #FFFFFF;
+                width: 100%;
+                height: 45px;
+                display: flex;
+                align-items: center;
+                justify-content: left;
+                padding: 0 12px;
+                background: transparent;
+                outline: none;
+
+                &::placeholder {
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 14px;
+                    line-height: 20px;
+                    letter-spacing: 0.3px;
+                    color: #FFFFFF;
+                    opacity: 0.8;
+                }
+            }
+
+            textarea {
+                border: 1px solid #9FA2B4;
+                border-radius: 8px;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 20px;
+                letter-spacing: 0.3px;
+                color: #FFFFFF;
+                width: 100%;
+                // height: 45px;
+                display: flex;
+                align-items: center;
+                justify-content: left;
+                padding: 12px;
+                background: transparent;
+                outline: none;
+
+                &::placeholder {
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 14px;
+                    line-height: 20px;
+                    letter-spacing: 0.3px;
+                    color: #FFFFFF;
+                    opacity: 0.8;
+                }
+            }
+
+            label {
+                border: 1px solid #9FA2B4;
+                border-radius: 8px;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 20px;
+                letter-spacing: 0.3px;
+                color: #FFFFFF;
+                width: 100%;
+                height: 45px;
+                display: flex;
+                align-items: center;
+                justify-content: left;
+                padding: 0 12px;
+                background: transparent;
+                outline: none;
+                position: relative;
+                z-index: 99;
+                cursor: pointer;
+            }
+
+            #file[type="file"] {
+                display: none;
+            }
+
+            img {
+                position: absolute;
+                right: 0;
+                top: 0px;
+                background-color: #7F73FF;
+                height: 44px;
+                border-radius: 0px 8px 8px 0;
+                cursor: pointer !important;
+                z-index: 1;
+                padding: 12px;
+            }
+
+            .react-datepicker__portal {
+                position: fixed;
+                width: unset;
+                height: unset;
+                background-color: rgba(0, 0, 0, 0.8);
+                left: 0;
+                top: 0;
+                justify-content: center;
+                align-items: center;
+                display: flex;
+                z-index: 2147483647;
+            }
+
+            .react-datepicker {
+                font-style: normal;
+                font-weight: 600;
+                font-size: 15px;
+                line-height: 18px;
+                text-align: center;
+                letter-spacing: -0.3px;
+                color: #23222B;
+                background-color: #fff;
+                border: 1px solid #aeaeae;
+                border-radius: 0.3rem;
+                display: inline-block;
+                position: relative;
+                border-radius: 20px !important;
+                padding: 24px !important;
+                cursor: pointer;
+
+                &__day-name {
+                    font-style: normal;
+                    font-weight: 600;
+                    font-size: 16px;
+                    line-height: 18px;
+                    text-align: center;
+                    letter-spacing: -0.3px;
+                    color: #C1CCDC;
+                    width: 66.76px;
+                    height: 50px;
+                    border-radius: 5px;
+                }
+
+                .react-datepicker__header {
+                    background: unset;
+                    border-radius: 5px;
+                    margin-bottom: 50px;
+                    border: none;
+                }
+
+                &__day {
+                    width: 66.76px;
+                    height: 50px;
+                    background: #F3F6FA;
+                    border-radius: 5px;
+                    font-style: normal;
+                    font-weight: 600;
+                    font-size: 15px;
+                    line-height: 18px;
+                    letter-spacing: -0.3px;
+                    color: #23222B;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    &:hover {
+                        background: #4030A4 !important;
+                        color: #FFFFFF !important;
+                    }
+                }
+
+                &__day--selected {
+                    background: #4030A4 !important;
+                    color: #FFFFFF !important;
+                }
+
+                .react-datepicker__day-names {
+                    position: absolute;
+                    top: 55px;
+                    left: 1%;
+                }
+
+                .react-datepicker__day--outside-month {
+                    font-style: normal;
+                    font-weight: 600;
+                    font-size: 15px;
+                    line-height: 18px;
+                    letter-spacing: -0.3px;
+                    color: #C1CCDC;
+
+                }
+
+                .react-datepicker__navigation-icon--next {
+                    left: 0%;
+                    top: -3px;
+                    display: none;
+                }
+
+                .react-datepicker__navigation-icon--previous {
+                    right: 0px;
+                    top: -2px;
+                    display: none;
+                }
+
+                .react-datepicker__year-read-view--down-arrow,
+                .react-datepicker__month-read-view--down-arrow,
+                .react-datepicker__month-year-read-view--down-arrow,
+                .react-datepicker__navigation-icon::before {
+                    border-color: #23222B;
+                    border-style: solid;
+                    border-width: 3px 3px 0 0;
+                    content: "";
+                    display: block;
+                    height: 12px;
+                    position: absolute;
+                    top: 6px;
+                    width: 12px;
+                }
+
+                .react-datepicker__current-month {
+                    display: none;
+                    align-items: center;
+                    justify-content: center;
+                    height: 40px;
+                    font-family: 'SF Pro Text';
+                    font-style: normal;
+                    font-weight: 600;
+                    font-size: 16px;
+                    line-height: 18px;
+                    text-align: center;
+                    letter-spacing: -0.3px;
+                    color: #23222B;
+                }
+
+                .react-datepicker__day--keyboard-selected,
+                .react-datepicker__month-text--keyboard-selected,
+                .react-datepicker__quarter-text--keyboard-selected,
+                .react-datepicker__year-text--keyboard-selected {
+                    border-radius: 0.3rem;
+                    color: #4030A4;
+                    font-weight: 900;
+                }
+
+                .react-datepicker__navigation--previous {
+                    left: 40px;
+                    top: 35px;
+                    border-radius: 50%;
+                    display: none !important;
+                }
+
+                .react-datepicker__navigation--next {
+                    right: 35px;
+                    top: 35px;
+                    border-radius: 50%;
+                    display: none !important;
+                }
+
+            }
+
+            .react-datepicker__header__dropdown {
+                display: flex;
+                justify-content: space-around;
+
+                .react-datepicker__month-dropdown-container--scroll {
+                    background: #F3F6FA;
+                    border-radius: 5px;
+                    width: 100%;
+                    height: 40px;
+                    font-style: normal;
+                    font-weight: 600;
+                    font-size: 15px;
+                    line-height: 18px;
+                    letter-spacing: -0.3px;
+                    color: #0D2C54;
+
+                    .react-datepicker__month-read-view--down-arrow {
+                        position: absolute;
+                        top: 10px;
+                        width: 12px;
+                        right: 10px;
+                        border-color: #0D2C54;
+                    }
+
+                    .react-datepicker__month-read-view--selected-month {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        height: 40px;
+                    }
+
+                    .react-datepicker__month-read-view {
+                        visibility: visible !important;
+                    }
+                }
+
+                .react-datepicker__year-dropdown-container--scroll {
+                    background: #F3F6FA;
+                    border-radius: 5px;
+                    width: 148.4px;
+                    height: 40px;
+
+                    .react-datepicker__year-read-view--selected-year {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-around;
+                        height: 40px;
+                        font-style: normal;
+                        font-weight: 600;
+                        font-size: 15px;
+                        line-height: 18px;
+                        letter-spacing: -0.3px;
+                        color: #0D2C54;
+                    }
+
+                    .react-datepicker__year-read-view--down-arrow {
+                        position: absolute;
+                        top: 10px;
+                        width: 12px;
+                        right: 10px;
+                        border-color: #0D2C54;
+                    }
+
+                    .react-datepicker__year-read-view {
+                        visibility: visible !important;
+                    }
+                }
+            }
+
+            .react-datepicker__month-dropdown {
+                background: #FFFFFF;
+                box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.15);
+                border-radius: 15px;
+                position: absolute;
+                width: 310.35px;
+                left: 3%;
+                top: 52px;
+                z-index: 1;
+                padding: 17px 26px;
+                text-align: center;
+                border: none;
+                height: 400px;
+
+                .react-datepicker__month-option {
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 12px;
+                    line-height: 200%;
+                    color: #0D2C54;
+                    margin-bottom: 8px;
+
+                    &:hover {
+                        background: #F3F6FA;
+                    }
+                }
+            }
+
+            .react-datepicker__header__dropdown .react-datepicker__header__dropdown--scroll {
+                display: grid;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .react-datepicker__month-dropdown-container .react-datepicker__month-dropdown-container--scroll {
+                margin-right: 30px;
+            }
+
+            .react-datepicker-popper {
+                position: absolute;
+                inset: auto auto auto auto;
+                transform: translate3d(0px, 70px, 0px);
+                border: none;
+                z-index: 9999;
+            }
+
+            .react-datepicker__year-dropdown {
+                background: #FFFFFF;
+                box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.15);
+                border-radius: 15px;
+                border: none;
+                width: 148.4px;
+                position: absolute;
+                left: 69%;
+                top: 50px;
+                z-index: 1;
+                padding: 17px 26px;
+                text-align: center;
+                height: 400px;
+
+                .react-datepicker__year-option {
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 12px;
+                    line-height: 200%;
+                    color: #0D2C54;
+                    margin-bottom: 8px;
+
+                    &:hover {
+                        background: #F3F6FA;
+                    }
+
+                    .react-datepicker__navigation--years-upcoming {
+                        top: -4px;
+                        display: none !important;
+                    }
+                }
+            }
+
+            .react-datepicker__input-container {
+                position: relative;
+                display: inline-block;
+                width: 100%;
+                cursor: pointer;
+                // width: 380px;
+
+                &::after {
+                    content: url("../../assets/image/calendar.svg");
+                    position: absolute;
+                    right: 10px;
+                    top: 10px;
+                    cursor: pointer;
+                    display: flex;
+                }
+            }
+
+            Select {
+                border: 1px solid #9FA2B4;
+                border-radius: 8px;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 20px;
+                letter-spacing: 0.3px;
+                color: #FFFFFF;
+                width: 100%;
+                height: 45px;
+                display: flex;
+                align-items: center;
+                justify-content: left;
+                padding: 0 12px;
+                background: transparent;
+                outline: none;
+
+                &::placeholder {
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 14px;
+                    line-height: 20px;
+                    letter-spacing: 0.3px;
+                    color: #FFFFFF;
+                    opacity: 0.8;
+                }
+            }
+
+
+            .css-13cymwt-control {
+                -webkit-align-items: center;
+                -webkit-box-align: center;
+                -ms-flex-align: center;
+                align-items: center;
+                cursor: default;
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: -ms-flexbox;
+                display: flex;
+                -webkit-box-flex-wrap: wrap;
+                -webkit-flex-wrap: wrap;
+                -ms-flex-wrap: wrap;
+                flex-wrap: wrap;
+                -webkit-box-pack: justify;
+                -webkit-justify-content: space-between;
+                justify-content: space-between;
+                min-height: 38px;
+                outline: 0 !important;
+                position: relative;
+                -webkit-transition: all 100ms;
+                transition: all 100ms;
+                background-color: transparent !important;
+                /* background-color: hsl(0, 0%, 100%); */
+                /* border-color: hsl(0, 0%, 80%); */
+                /* border-radius: 4px; */
+                /* border-style: solid; */
+                /* border-width: 1px; */
+                box-sizing: border-box;
+
+                // border-color: 1px solid #fff !important;
+                // border-style: none !important;
+                &:focus {
+                    background-color: transparent !important;
+                }
+            }
+
+            .css-1jqq78o-placeholder {
+                grid-area: 1/1/2/1;
+                color: #fff;
+                /* margin-left: 2px; */
+                /* margin-right: 2px; */
+                box-sizing: border-box;
+            }
+
+
+        }
+
+        .btn_form {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+
+            .add {
+                background: #7F73FF;
+                border-radius: 5px;
+                width: 100%;
+                height: 44px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-style: normal;
+                font-weight: 700;
+                font-size: 18px;
+                line-height: 25px;
+                text-align: center;
+                color: #FFFFFF;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+            .remove {
+                background: #E64658;
+                border-radius: 5px;
+                width: 100%;
+                height: 44px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-style: normal;
+                font-weight: 700;
+                font-size: 18px;
+                line-height: 25px;
+                text-align: center;
+                color: #FFFFFF;
+                text-decoration: none;
+                cursor: pointer;
+            }
+        }
+
+        .form_control_table {
+            margin-bottom: 22px;
+            display: grid;
+            justify-content: center;
+            align-items: center;
+
+            label {
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 20px;
+                letter-spacing: 0.3px;
+                color: #FFFFFF;
+                margin-bottom: 12px;
+            }
+
+            input {
+                background-color: transparent;
+                width: 57px;
+                height: 50px;
+                border: 1px solid #9FA2B4;
+                border-radius: 8px;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 20px;
+                letter-spacing: 0.3px;
+                color: #FFFFFF;
+                display: flex;
+                text-align: center;
+                justify-content: center;
+                outline: none;
+                margin: 0 auto;
+
+                &:focus {
+                    color: #fff !important;
+                    border: 1px solid #fff !important;
+                }
+
+                &::placeholder {
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 129.34%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #C1CCDC;
+                }
+            }
+
+            .active {
+                border: 1px solid #fff !important;
+            }
+
+            span {
+                font-style: normal;
+                font-weight: 700;
+                line-height: 129.34%;
+                display: flex;
+                align-items: center;
+                color: #fff;
+                font-size: 18px;
+            }
+        }
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+
+        .table_head {
+            background: #323D59;
+            box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px 8px 0px 0px !important;
+            position: sticky;
+            top: 0;
+            overflow: hidden;
+
+            tr {
+                box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+                border-radius: 8px 8px 0px 0px !important;
+
+                th {
+                    border-bottom: 0 !important;
+                    padding: 24px 0;
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 14px;
+                    line-height: 18px;
+                    text-align: center;
+                    letter-spacing: 0.4px;
+                    color: #FFFFFF;
+                }
+            }
+        }
+
+        .table_body {
+            .body_tr {
+                border-bottom: 1px solid #7F73FF !important;
+                cursor: pointer;
+
+                .avatar_image {
+                    img {
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+                        object-fit: cover;
+
+                    }
+                }
+
+                span {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 50px;
+                }
+
+                td {
+                    background: #283046;
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 18px;
+                    text-align: center;
+                    letter-spacing: 0.4px;
+                    color: #FFFFFF;
+                    padding: 8px 8px;
+
+                }
+
+                &:hover {
+                    background-color: #323D59;
+
+                    td {
+                        font-weight: 400;
+                        font-size: 14px;
+                        line-height: 18px;
+                        text-align: center;
+                        letter-spacing: 0.4px;
+                        color: #FFFFFF;
+                    }
+                }
+
+                .icon_link {
+                    width: 40px;
+
+                    span {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        height: 50px;
+                        cursor: pointer;
+                    }
+                }
+
+                .lock_icon {
+                    img {
+                        width: 28px !important;
+                    }
+                }
+
+                .sms_icon {
+                    img {
+                        width: 24px !important;
+                    }
+                }
+            }
+        }
+    }
+
+    .form_control {
+        .title {
+            text-align: left;
+            margin-bottom: 30px;
+            margin-top: 20px;
+            p {
+                font-style: normal;
+                font-weight: 400;
+                font-size: 18px;
+                line-height: 23px;
+                letter-spacing: 0.4px;
+                color: #FFFFFF;
+                margin-bottom: 4px;
+            }
+
+            span {
+                font-style: normal;
+                font-weight: 400;
+                font-size: 10px;
+                line-height: 13px;
+                letter-spacing: 0.4px;
+                color: #D5D5D8;
+            }
+        }
+        .worker{
+            p {
+                font-style: normal;
+                font-weight: 400;
+                font-size: 10px;
+                line-height: 13px;
+                letter-spacing: 0.4px;
+                color: #D5D5D8;
+                margin-bottom: 5px;
+            }
+            span {
+                font-style: normal;
+                font-weight: 400;
+                font-size: 18px;
+                line-height: 23px;
+                letter-spacing: 0.4px;
+                color: #FFFFFF;
+            }
+        }
+    }
+    .dalete_user {
+        padding: 31px 34px;
+    
+        .title {
+            text-align: center;
+            margin-bottom: 50px;
+    
+            h4 {
+                font-style: normal;
+                font-weight: 700;
+                font-size: 24px;
+                line-height: 30px;
+                text-align: center;
+                letter-spacing: 0.4px;
+                color: #FFFFFF;
+            }
+        }
+    
+        .dalete_about {
+            display: grid;
+            margin: 0 auto;
+            justify-content: center;
+            align-items: center;
+    
+            img {
+                border-radius: 50%;
+                margin-bottom: 16px;
+                width: 100px;
+                margin: 0 auto;
+                height: 100px;
+                object-fit: cover;
+            }
+    
+            p {
+                font-style: normal;
+                font-weight: 400;
+                font-size: 20px;
+                line-height: 18px;
+                text-align: center;
+                letter-spacing: 0.4px;
+                color: #FFFFFF;
+                margin-bottom: 24px;
+                margin-top: 14px;
+            }
+        }
+    
+        .btn_form {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+    
+            .add {
+                background: #7F73FF;
+                border-radius: 5px;
+                height: 44px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-style: normal;
+                font-weight: 700;
+                font-size: 18px;
+                line-height: 25px;
+                text-align: center;
+                color: #FFFFFF;
+                text-decoration: none;
+                cursor: pointer;
+                padding: 0 12px;
+            }
+    
+            .remove {
+                background: #E64658;
+                border-radius: 5px;
+                height: 44px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-style: normal;
+                font-weight: 700;
+                font-size: 18px;
+                line-height: 25px;
+                text-align: center;
+                color: #FFFFFF;
+                text-decoration: none;
+                cursor: pointer;
+                padding: 0 12px;
+            }
+        }
+    
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "name": "Tizim Astrolab",
+    "short_name": "Tizim Astrolab",
+    "icons": [
+        {
+            "src": "/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#5a43c8",
+    "background_color": "#5a43c8",
+    "display": "standalone"
+}

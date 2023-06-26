@@ -1,0 +1,200 @@
+.App {
+    .Toastify__toast {
+        background: #7F73FF;
+        box-shadow: 0px 0px 10px rgba(127, 115, 255, 0.5);
+        border-radius: 5px;
+        color: #fff;
+        z-index: 9999;
+
+        .Toastify__toast-body {
+            background: transparent;
+            padding: 16px 20px;
+            border: none !important;
+            position: relative;
+            font-size: 16px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+
+            img {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+
+            .noty_title_flex {
+                display: grid;
+
+                h6 {
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 16px;
+                    line-height: 20px;
+                    letter-spacing: 0.2px;
+                    color: #FFFFFF;
+                    margin-bottom: 10px;
+                }
+
+                p {
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 20px;
+                    letter-spacing: 0.2px;
+                    color: #FFFFFF;
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        small {
+            color: #fff;
+        }
+    }
+}
+
+
+
+.sms_modal {
+    padding: 31px 37px;
+    color: #FFFFFF;
+
+    .sms_text {
+        h4 {
+            font-style: normal;
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 30px;
+            letter-spacing: 0.4px;
+            color: #FFFFFF;
+            margin-bottom: 24px;
+        }
+    }
+
+    .sms_modal_header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 40px;
+
+        .sms_title {
+            h6 {
+                font-style: normal;
+                font-weight: 700;
+                font-size: 18px;
+                line-height: 30px;
+                letter-spacing: 0.4px;
+                color: #FFFFFF;
+                margin-bottom: 5px;
+            }
+
+            img {
+                border-radius: 50%;
+                width: 100px;
+                height: 100px;
+                object-fit: cover;
+            }
+
+            p {
+                font-style: normal;
+                font-weight: 700;
+                font-size: 16px;
+                line-height: 25px;
+                letter-spacing: 0.4px;
+                color: #FFFFFF;
+                margin-bottom: 5px;
+            }
+        }
+    }
+
+    .sms_modal_body {
+        .text {
+            width: 100%;
+            min-height: 150px;
+            border: 1px solid #9FA2B4;
+            border-radius: 8px;
+            padding: 11px 16px;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 20px;
+            letter-spacing: 0.3px;
+            color: #FFFFFF;
+
+            p {
+                font-weight: 500;
+                font-size: 20px;
+                font-family: 700;
+                line-height: 20px;
+                letter-spacing: 0.3px;
+                color: #FFFFFF;
+            }
+        }
+    }
+
+    .sms_modal_btn {
+        margin-top: 30px;
+        gap: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: right;
+
+        .add {
+            background: #7F73FF;
+            border-radius: 5px;
+            height: 44px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-style: normal;
+            font-weight: 700;
+            font-size: 18px;
+            line-height: 25px;
+            text-align: center;
+            color: #FFFFFF;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 0 12px;
+        }
+
+        .remove {
+            background: #E64658;
+            border-radius: 5px;
+            height: 44px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-style: normal;
+            font-weight: 700;
+            font-size: 18px;
+            line-height: 25px;
+            text-align: center;
+            color: #FFFFFF;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 0 12px;
+        }
+    }
+}
+
+
+.succes_modal {
+    display: block;
+    margin: 0 auto;
+    justify-content: center;
+    text-align: center;
+    padding: 31px 34px;
+
+    p {
+        margin-top: 40px;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 30px;
+        text-align: center;
+        letter-spacing: 0.4px;
+        color: #FFFFFF;
+    }
+}

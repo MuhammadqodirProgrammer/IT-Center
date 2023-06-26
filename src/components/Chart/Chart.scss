@@ -1,0 +1,23 @@
+.chart_sec {
+    width: 100%;
+    min-height: 400px;
+    border-radius: 8px;
+    background: #283046;
+    padding: 32px;
+
+    .chart_title {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 19px;
+        line-height: 24px;
+        letter-spacing: 0.4px;
+        color: #FFFFFF;
+        margin-bottom: 50px;
+    }
+}
+#light .chart_sec{
+    background: #fff;
+    .chart_title {
+        color: #1C2230;
+    }
+}

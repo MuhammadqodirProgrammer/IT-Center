@@ -1,0 +1,18 @@
+#dark .mood{
+    .darks{
+        display: none;
+    }
+    .lights{
+        display: block;
+        cursor: pointer;
+    }
+}
+#light .mood{
+    .darks{
+        display: block;
+        cursor: pointer;
+    }
+    .lights{
+        display: none;
+    }
+}
