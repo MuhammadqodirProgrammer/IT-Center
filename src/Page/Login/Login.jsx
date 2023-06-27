@@ -45,7 +45,7 @@ export const Login = () => {
       <div className="left">
         <div className="all_txt d-grid">
           <img className="img_sticker" src={Img3} alt="sticker" />
-          <h1 className="all_h1">Astrolab tizimga
+          <h1 className="all_h1">IT-Center tizimga
             xush kelibsiz! </h1>
         </div>
         <form className="login_form" onSubmit={(e) => onSubmit(e)}>

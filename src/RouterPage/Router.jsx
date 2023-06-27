@@ -8,8 +8,9 @@ import Login from '../Page/Login/Login'
 import TablePage from '../Page/TablePage/TablePage'
 import Sections from '../Page/Sections/Sections'
 import Message from '../Page/Message/Message'
-import Event from '../Page/Event/Event'
+// import Event from '../Page/Event/Group'
 import PageNotFound from '../Page/404page/PageNotFound'
+import Group from '../Page/Event/Event'
 
 const Router = ({mode, sms}) => {
   const token = localStorage.getItem("access_token")
@@ -35,7 +36,7 @@ const Router = ({mode, sms}) => {
                 <Route path='worker' element={<Worker/>} />
                 {/* <Route path='table' element={<TablePage/>}/> */}
                 <Route path='sections' element={<Sections/>}/>
-                <Route path='event' element={<Event/>}/>
+                <Route path='group' element={<Group/>}/>
                 <Route path='message/:id' element={<Message/>}/>
             <Route path='*' element={<Navigate to={"/"}/>}/>
           </Routes>

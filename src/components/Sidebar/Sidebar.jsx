@@ -65,7 +65,7 @@ const Sidebar = ({setOpen,drawer,setDrawer}) => {
               </NavLink>
             </li>
             <li>
-              <NavLink to={"/event"} onClick={() => handleId(t('aside.event'))}>
+              <NavLink to="/group" onClick={() => handleId(t('aside.event'))}>
                 <img src={Agent} alt="icon" />
                 {drawer && t('aside.event')}
               </NavLink>

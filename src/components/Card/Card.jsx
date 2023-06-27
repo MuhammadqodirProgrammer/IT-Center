@@ -15,24 +15,7 @@ const Card = () => {
     const [workerIn, setWorkerIn] = useState()
     const [workerAll, setWorkerAll] = useState()
     const [workerTop, setWorkerTop] = useState()
-    const data = [
-        {
-            title: "Umumiy ishchilar",
-            number: "45"
-        },
-        {
-            title: "Ayni vaqtda ishda",
-            number: "20"
-        },
-        {
-            title: "Eng yaxshi xodim",
-            number: ""
-        },
-        {
-            title: `Eng yomon xodim`,
-            number: "",
-        }
-    ]
+ 
     const OnSubmit = () => {
         apiRoot.get(`/v1/worker/count/${moment().format().slice(0, 10)}`,
             {

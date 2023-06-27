@@ -17,7 +17,7 @@ import Edit from '../../assets/image/Group 9.svg'
 
 
 import { useTranslation } from 'react-i18next';
-const Event = () => {
+const Group = () => {
 	const { t } = useTranslation();
 	const token = localStorage.getItem('access_token');
 	const [open, setOpen] = useState(false);
@@ -494,4 +494,4 @@ const Event = () => {
 	);
 };
 
-export default Event;
+export default Group;
