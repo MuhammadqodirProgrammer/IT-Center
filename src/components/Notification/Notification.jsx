@@ -7,7 +7,7 @@ import { NEW } from '../../assets/const';
 import SuperModal from '../SuperModal/SuperModal';
 import SuccesModalImage from '../../assets/image/congrats-message.svg';
 const Notification = ({ sms }) => {
-	const token = localStorage.getItem('access_token');
+	const token = localStorage.getItem('token');
 	const [read, setRead] = useState();
 	const [open, setOpen] = useState();
 	const [open2, setOpen2] = useState(false);
@@ -16,23 +16,23 @@ const Notification = ({ sms }) => {
 	const [id, setId] = useState();
 	const [send, setSend] = useState();
 
-  const { t } = useTranslation();
+	const { t } = useTranslation();
 	const onRead = () => {
-		apiRoot
-			.get(`/v1/messages/list`, {
-				headers: {
-					Authorization: `${token}`,
-				},
-			})
-			.then((res) => {
-				setRead(res?.data);
-			});
+		// apiRoot
+		// 	.get(`/v1/messages/list`, {
+		// 		headers: {
+		// 			Authorization: `Bearer ${token}`,
+		// 		},
+		// 	})
+		// 	.then((res) => {
+		// 		setRead(res?.data);
+		// 	});
 	};
 	const GetMessageId = (id) => {
 		apiRoot
 			.get(`/v1/message/${id}`, {
 				headers: {
-					Authorization: `${token}`,
+					Authorization: `Bearer ${token}`,
 				},
 			})
 			.then((res) => {
@@ -49,7 +49,7 @@ const Notification = ({ sms }) => {
 		apiRoot
 			.put(`/v1/message`, data, {
 				headers: {
-					Authorization: `${token}`,
+					Authorization: `Bearer ${token}`,
 				},
 			})
 			.then((res) => {
@@ -141,10 +141,10 @@ const Notification = ({ sms }) => {
 						</div>
 						<div className='sms_modal_btn'>
 							<div className='add' onClick={(e) => SendAccept(e, true)}>
-              {t('notification.n4')}
+								{t('notification.n4')}
 							</div>
 							<a className='remove' onClick={(e) => SendAccept(e, false)}>
-              {t('notification.n5')}
+								{t('notification.n5')}
 							</a>
 						</div>
 					</div>

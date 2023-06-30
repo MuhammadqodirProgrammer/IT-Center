@@ -7,11 +7,12 @@ import { useNavigate } from "react-router-dom";
 import noeye_btn from "../../assets/image/mdi_show.svg";
 import eye from '../../assets/image/eyeactive.svg'
 import { error } from "../../services/Error";
+import axios from "axios";
 export const Login = () => {
   const [username, setUsername] = useState("");
   const [psw, setPsw] = useState("");
   const [states, setStates] = useState(false);
-  const workerToken = localStorage.getItem("worker-token");
+  // const workerToken = localStorage.getItem("worker-token");
   const navigate = useNavigate()
   const toggleBtn = () => {
     setStates((prev) => !prev);
@@ -21,18 +22,55 @@ export const Login = () => {
     const data = {
       password: psw,
       username: username,
-      fcm_token: workerToken,
     };
-    apiRoot.post("/v1/login", data).then((response) => {
-      console.log(response, "response");
-      localStorage.setItem("access_token", response?.data?.access_token);
-      window.location.reload();
+    console.log(data);
+
+    apiRoot.post("/auth/admin", data).then((response) => {
+      console.log(response?.data, "response");
+  
+if(response?.data){
+
+  localStorage.setItem("token", response?.data?.token);
+  localStorage.setItem("role", response?.data?.role);
+  window.location.reload();
+}
+
     }).catch((err)=>{
       if(err){
-        error()
+        // error()
+      }
+    })
+    
+    apiRoot.post("/auth/teacher", data).then((response) => {
+      console.log(response?.data, "responsetch");
+  
+
+      if(response?.data ){
+        
+        localStorage.setItem("token", response?.data?.token);
+        localStorage.setItem("role", response?.data?.role);
+        window.location.reload();
+      }
+    }).catch((err)=>{
+      if(err){
+      }
+    })
+    apiRoot.post("/auth/login", data).then((response) => {
+      console.log(response?.data, "responsetch");
+  
+
+      if(response?.data ){
+        
+        localStorage.setItem("token", response?.data?.token);
+        localStorage.setItem("role", response?.data?.role);
+        window.location.reload();
+      }
+    }).catch((err)=>{
+      if(err){
       }
     })
   };
+  
   return (
     <div className="all">
       <div className="right">

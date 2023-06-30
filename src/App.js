@@ -16,6 +16,7 @@ import { lang } from './lang/lang';
 import { Admin } from './apps/Admin';
 import { Teacher } from './apps/Teacher';
 import { Student } from './apps/Student';
+import Login from './Page/Login/Login';
 function App() {
 	// lang  start
 	i18n.use(initReactI18next).init({
@@ -39,7 +40,7 @@ function App() {
 		setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
 	};
 	localStorage.setItem('theme', theme);
-	const token = localStorage.getItem('access_token');
+	const token = localStorage.getItem('token');
 
 	const [show, setShow] = useState(false);
 	const [notification, setNotification] = useState({ title: '', body: '' });
@@ -76,7 +77,7 @@ function App() {
 		apiRoot
 			.put(`/v1/message`, data, {
 				headers: {
-					Authorization: `${token}`,
+					Authorization: `Bearer ${token}`,
 				},
 			})
 			.then((res) => {
@@ -97,7 +98,7 @@ function App() {
 		apiRoot
 			.get(`/v1/message/${id}`, {
 				headers: {
-					Authorization: `${token}`,
+					Authorization: `Bearer ${token}`,
 				},
 			})
 			.then((res) => {
@@ -110,8 +111,8 @@ function App() {
 	// setTimeout(() => {
 	//     toggleShowA()
 	// }, 10000);
-	const role = 'admin';
-
+	const role = localStorage.getItem("role");
+console.log(role);
 	if (role == 'admin') {
 		return (
 			<div className='App' id={theme}>
@@ -205,10 +206,13 @@ function App() {
 	} else if (role == 'student') {
 		return (
 			<div className='App' id={theme}>
-				<Student/>
+				<Student />
 			</div>
 		);
 	} else {
+		return(
+			<Login/>
+		)
 	}
 }
 

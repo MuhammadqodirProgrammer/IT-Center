@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import AddIcon from '../../assets/image/material-symbols_add.svg';
 import Table from 'react-bootstrap/Table';
-import './Worker.scss';
+import '../Worker/Worker.scss';
 import Edit from '../../assets/image/Group 9.svg';
 import Dalate from '../../assets/image/Group 10.svg';
 import UploadImage from '../../assets/image/upload.svg';
@@ -16,9 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import MyPagination from '../../components/MyPagination/MyPagination';
 import { error } from '../../services/Error';
 import { useTranslation } from 'react-i18next';
-import { elements } from 'chart.js';
-import userEvent from '@testing-library/user-event';
-const Worker = () => {
+const Student = () => {
 	const { t } = useTranslation();
 	const token = localStorage.getItem('token');
 	const [open, setOpen] = useState(false);
@@ -35,6 +33,7 @@ const Worker = () => {
 	const [edit, setEdit] = useState(false);
 	const [dalete, setDalete] = useState(false);
 	const [id, setId] = useState();
+	const [updateid, setupdateId] = useState();
 	const [getId, setGetId] = useState();
 	const [changeimg, setChangeimg] = useState();
 	const [changeSurname, setChangeSurname] = useState();
@@ -42,6 +41,7 @@ const Worker = () => {
 	const [changeGender, setChangeGender] = useState();
 	const [changefio, setChangefio] = useState('');
 	const [changeposition, setChangeposition] = useState('');
+	const [changepositionId, setChangepositionId] = useState('');
 	const [changedepartment, setChangedepartment] = useState('');
 	const [changephone, setChangephone] = useState('');
 	const [render, setRender] = useState(false);
@@ -49,12 +49,7 @@ const Worker = () => {
 	const [psw, setPws] = useState();
 	const [unId, setUnId] = useState();
 	const [remove, setRemove] = useState();
-	const [time, setTime] = useState();
-	const [mySearch, setSearch] = useState();
-	const [time1, setTime1] = useState('');
-	// const [startTime,  setStartTime] = useState("")
-	const [num, setNum] = useState('');
-	const [num2, setNum2] = useState('');
+
 	const navigate = useNavigate();
 
 	const nameRef = useRef();
@@ -65,62 +60,101 @@ const Worker = () => {
 	const tgUserNameRef = useRef();
 	const ageRef = useRef();
 	const yonalishRef = useRef();
-	const searchRef = useRef();
-	console.log(token);
-	const GetUser = () => {
+	const groupSelect = useRef();
+	const groupSelectEdit = useRef();
+
+	const [allname, setAllname] = useState('');
+
+	useEffect(() => {
 		apiRoot
-			.get(`/teacher/skip=${1}/limit=${10}`, {
+			.get(`/group/skip=${0}/limit=${10}`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
 			})
 			.then((res) => {
-				console.log(res);
+				setAllname(SelectDate(res?.data?.data));
+				console.log(res.data.data, 'data');
+				console.log(SelectDate(res?.data?.data), 'mydaa');
+			})
+			.catch(() => {
+				// error()
+			});
+	}, []);
+	const SelectDate = (arr) => {
+		const option = [];
+		arr?.map((item) => {
+			option?.push({
+				value: item?._id,
+				label: item?.profession + ' N' + item?.groupNumber,
+			});
+		});
+		return option;
+	};
+
+	const GetUser = () => {
+		apiRoot
+			.get(`/student/skip=${0}/limit=${10}`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((res) => {
 				setUser(res.data?.data);
 			})
 			.catch(() => {
 				// error()
 			});
-		// apiRoot
 	
 	};
 	const onSubmit = (e) => {
 		e.preventDefault();
-		const phoneNumber =(phoneRef.current?.value).replaceAll('-' ,"").replaceAll(" " , "").replaceAll("(" ,"").replaceAll(")" ,"")
+const phoneNumber =(phoneRef.current?.value).replaceAll('-' ,"").replaceAll(" " , "").replaceAll("(" ,"").replaceAll(")" ,"")
 
 		const formData = new FormData();
 		console.log(token);
 		formData.append('name', nameRef.current?.value);
 		formData.append('surname', surnameRef.current?.value);
 		formData.append('age', ageRef.current?.value);
-		formData.append('profession', yonalishRef.current?.value);
-		formData.append('phoneNumber', phoneNumber);
+		formData.append('groupId', groupSelect.current?.value);
+		formData.append('phoneNumber',phoneNumber );
 		formData.append('image', imageRef.current?.files[0]);
 		formData.append('telegramUsername', tgUserNameRef.current?.value);
 		formData.append('jins', jinsRef.current?.value);
+		console.log(
+			nameRef.current?.value,
+			surnameRef.current?.value,
+			ageRef.current?.value,
+			groupSelect.current?.value,
+			phoneRef.current?.value,
+			imageRef.current?.files[0],
+			tgUserNameRef.current?.value
+		);
 		apiRoot
-			.post(`/teacher`, formData, {
+			.post(`/student`, formData, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
 			})
 			.then((res) => {
-				console.log(res.data?.data);
+				console.log(res);
 				if (res.data?.data) {
 					GetUser();
 				}
 			});
 	};
 	const GetIdUser = (ids) => {
+		console.log(ids ,"id");
+		setupdateId(ids)
 		apiRoot
-			.get(`/teacher/${ids}`, {
+			.get(`/student/${ids}`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
 			})
 			.then((res) => {
 				console.log(res.data.data);
-				console.log(res.data?.data?.image);
+
 				setGetId(res?.data?.data);
 				setId(res?.data?.data?._id);
 				setChangefio(res?.data?.data?.name);
@@ -130,12 +164,12 @@ const Worker = () => {
 				setChangeGender(res?.data?.data?.jins);
 
 				setChangeimg(res.data?.data?.image);
-				setChangeposition(res?.data?.data?.profession);
+				setChangeposition(res?.data?.data?.groupId?.profession);
+				// setChangepositionId(res?.data?.data?.groupId?._id);
 				setChangedepartment(res?.data?.data?.telegramUsername);
 				setChangephone(res?.data?.data?.phoneNumber);
 				setUnId(res?.data?.data?.telegramUsername);
 				setPws(res?.data?.data?.phoneNumber);
-				setTime(res?.data?.w_come_time);
 			})
 			.catch((err) => {
 				console.log(err);
@@ -145,13 +179,16 @@ const Worker = () => {
 	// GetIdUser()
 	const onSubmitUpdate = (e) => {
 		e.preventDefault();
-		const phoneNumber =(changephone).replaceAll('-' ,"").replaceAll(" " , "").replaceAll("(" ,"").replaceAll(")" ,"")
-
 		const formData = new FormData();
+const phoneNumber =(changephone).replaceAll('-' ,"").replaceAll(" " , "").replaceAll("(" ,"").replaceAll(")" ,"")
+
 		formData.append('name', changefio);
 		formData.append('surname', changeSurname);
 		formData.append('age', changeAge);
-		formData.append('profession', changeposition);
+		formData.append(
+			'groupId',
+			groupSelectEdit.current?.value || changeposition
+		);
 		formData.append('phoneNumber', phoneNumber);
 		formData.append('image', changeimg);
 		formData.append('telegramUsername', changedepartment);
@@ -159,22 +196,22 @@ const Worker = () => {
 		console.log(changeimg);
 		console.log(id, 'id', typeof id);
 		apiRoot
-			.put(`/teacher/${id}`, formData, {
+			.put(`/student/${id}`, formData, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
 			})
 			.then((res) => {
 				console.log(res);
-				if (res.data) {
-					GetUser();
+				if(res.data){
+					GetUser()
 				}
 			});
 	};
 
 	const onSubmitDalete = () => {
 		apiRoot
-			.delete(`/teacher/${id}`, {
+			.delete(`/student/${id}`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
@@ -187,34 +224,16 @@ const Worker = () => {
 
 	useEffect(() => {
 		GetUser();
-		// GetIdUser()
+		GetIdUser(updateid)
 	}, [open, id, render, remove, page]);
+	useEffect(() => {
+
+	}, [edit]);
 
 	const HandleChangePage = useCallback((page) => {
 		setPage(page);
 	}, []);
-	const handleSearch = (e) => {
-		e.preventDefault();
-		console.log(user);
-
-		const search = e.target?.value.toLowerCase();
-
-		if (search) {
-			const newTeacher = user.filter((el) =>
-				el.name?.toLowerCase().includes(search)
-			);
-
-			setUser(newTeacher);
-		} else if (!search) {
-			GetUser();
-		} else {
-			const newTeacher = user.filter((el) =>
-				el.name?.toLowerCase().includes(search)
-			);
-
-			setUser(newTeacher);
-		}
-	};
+	// user?.data?.workers?.sort((a, b) => a?.wname?.localeCompare(b?.wname));
 	return (
 		<div className='worker_section'>
 			<Container fluid>
@@ -224,9 +243,7 @@ const Worker = () => {
 							type='search'
 							placeholder='Search...'
 							required
-							ref={searchRef}
-							onChange={(e) => handleSearch(e)}
-							// onInput={(e)=>handleSearch(e)}
+							ref={surnameRef}
 						/>
 					</div>
 					<form action='' className='add_user_page'>
@@ -301,7 +318,7 @@ const Worker = () => {
 													onClick={() => {
 														setEdit(true);
 														GetIdUser(a?._id);
-														console.log('inner', a._id);
+														
 													}}
 												>
 													<img src={Edit} alt='EDIT_ICON' />
@@ -365,15 +382,7 @@ const Worker = () => {
 									ref={tgUserNameRef}
 								/>
 							</div>
-							<div className='form_control'>
-								<input
-									type='text'
-									required
-									id='text_work'
-									placeholder={t('worker.w4')}
-									ref={yonalishRef}
-								/>
-							</div>
+
 							<div className='form_control'>
 								<InputMask
 									type='text'
@@ -399,36 +408,23 @@ const Worker = () => {
 								<img src={UploadImage} alt='' />
 							</div>
 							<div className='form_control'>
+								<select ref={groupSelect} placeholder='Student qoshish'>
+									{allname.length
+										? allname.map((el) => (
+												<option style={{ color: 'black' }} value={el.value}>
+													{el.label}
+												</option>
+										  ))
+										: 'Student oqtuvchilar yoq '}
+								</select>
+							</div>
+							<div className='form_control'>
 								<select id='' placeholder='Gender' ref={jinsRef}>
 									<option value='Male'>Male</option>
 									<option value='Famale'>Famale</option>
 								</select>
 							</div>
 
-							{/* <div className='form_control_table'>
-								<label>{t('worker.w8')}</label>
-								<div className='d-flex'>
-									<input
-										type='text'
-										placeholder='00'
-										maxLength={2}
-                                    ref={}        
-										value={num}
-										className={num ? 'active' : null}
-										required
-									/>
-									<span>:</span>
-									<input
-										type='text'
-										placeholder='00'
-										maxLength={2}
-                                    ref={}        
-										value={num2}
-										className={num2 ? 'active' : null}
-										required
-									/>
-								</div>
-							</div> */}
 							<div className='btn_form'>
 								<div
 									className='add'
@@ -493,6 +489,21 @@ const Worker = () => {
 								/>
 							</div>
 							<div className='form_control'>
+								<select
+									ref={groupSelectEdit}
+									defaultValue={changeposition}
+									placeholder='Student qoshish'
+								>
+									{allname.length
+										? allname.map((el) => (
+												<option style={{ color: 'black' }} value={el.value}>
+													{el.label}
+												</option>
+										  ))
+										: 'Student oqtuvchilar yoq '}
+								</select>
+							</div>
+							{/* <div className='form_control'>
 								<input
 									type='text'
 									required
@@ -501,7 +512,7 @@ const Worker = () => {
 									onChange={(e) => setChangeposition(e?.target?.value)}
 									defaultValue={changeposition}
 								/>
-							</div>
+							</div> */}
 							<div className='form_control'>
 								<InputMask
 									type='text'
@@ -617,10 +628,10 @@ const Worker = () => {
 						</div>
 						<div className='dalete_about'>
 							<img src={'http://localhost:4000/' + changeimg} alt='image' />
-							<p>{changefio}</p>
+							<p>{changefio + ' ' + changeSurname}</p>
 							<div className='psw'>
 								<p>
-									username: <span>{unId}</span>
+									Username: <span>{unId}</span>
 								</p>
 								<p>
 									Parol: <span> {psw} </span>{' '}
@@ -634,4 +645,4 @@ const Worker = () => {
 	);
 };
 
-export default Worker;
+export default Student;

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Container, Table } from 'react-bootstrap';
 import './Event.scss';
 import AddIcon from '../../assets/image/material-symbols_add.svg';
@@ -13,14 +13,33 @@ import Success from '../../assets/image/success.svg';
 import Cancel from '../../assets/image/ic_baseline-cancel.svg';
 import { error } from '../../services/Error';
 import UploadImage from '../../assets/image/upload.svg';
-import Edit from '../../assets/image/Group 9.svg'
-
+import Edit from '../../assets/image/Group 9.svg';
 
 import { useTranslation } from 'react-i18next';
 const Group = () => {
 	const { t } = useTranslation();
-	const token = localStorage.getItem('access_token');
+	const token = localStorage.getItem('token');
+	const yonalish = useRef();
+	const gr_raqam = useRef();
+	const ustoz = useRef();
+	const yordamchiUstoz = useRef();
+	const kun = useRef();
+	const vaqt = useRef();
+	const hona = useRef();
+	const rasm = useRef();
+
+	// edit
+	const yonalishEdit = useRef();
+	const gr_raqamEdit = useRef();
+	const ustozEdit = useRef();
+	const yordamchiUstozEdit = useRef();
+	const kunEdit = useRef();
+	const vaqtEdit = useRef();
+	const honaEdit = useRef();
+	const rasmEdit = useRef();
+
 	const [open, setOpen] = useState(false);
+	const [openEdit, setOpenEdit] = useState(false);
 	const [startDate, setStartDate] = useState(new Date());
 	const [isLoading, setIsLoading] = useState(false);
 	const [isSearchable, setIsSearchable] = useState(true);
@@ -28,21 +47,25 @@ const Group = () => {
 	const [eventTitle, setEventTitle] = useState('');
 	const [eventMessage, setEventMessage] = useState('');
 	const [eventId, setEventId] = useState([]);
-	const [getEvent, setGetEvent] = useState();
+	const [getGroup, setGetGroup] = useState();
+	const [GroupOne, setGroupOne] = useState();
 	const [id, setId] = useState();
+	const [idDelete, setIdDelete] = useState();
 	const [what, setWhat] = useState(false);
 	const [eventGetId, setEventGetId] = useState();
 	const [dalete, setDalete] = useState(false);
 	const animatedComponents = makeAnimated();
 	useEffect(() => {
+		getGroups();
 		apiRoot
-			.get(`/v1/worker/all/home`, {
+			.get(`/teacher/skip=${0}/limit=${10}`, {
 				headers: {
-					Authorization: `${token}`,
+					Authorization: `Bearer ${token}`,
 				},
 			})
 			.then((res) => {
-				setAllname(SelectDate(res?.data?.date));
+				setAllname(SelectDate(res?.data?.data));
+				console.log(res.data.data, 'data');
 			})
 			.catch(() => {
 				// error()
@@ -52,8 +75,8 @@ const Group = () => {
 		const option = [];
 		arr?.map((item) => {
 			option?.push({
-				value: item?.id,
-				label: item?.wname,
+				value: item?._id,
+				label: item?.name,
 			});
 		});
 		return option;
@@ -61,47 +84,93 @@ const Group = () => {
 	const HandleChange = (eventId) => {
 		setEventId(eventId);
 	};
-
-	const OnSubmit = (e) => {
-		const workerId = eventId?.map((item) => item?.value);
-		e.preventDefault();
-		const data = {
-			description: eventMessage,
-			title: eventTitle,
-			event_date: startDate,
-			workers_for_event: workerId,
-		};
+	const getGroups = () => {
 		apiRoot
-			.post(`/v1/create/event`, data, {
+			.get(`/group/skip=${0}/limit=${10}`, {
 				headers: {
-					Authorization: `${token}`,
+					Authorization: `Bearer ${token}`,
 				},
 			})
 			.then((res) => {
-				console.log(res?.data);
-				apiRoot
-					.get(`/v1/events`, {
-						headers: {
-							Authorization: `${token}`,
-						},
-					})
-					.then((res) => {
-						setGetEvent(res?.data);
-					})
-					.catch(() => {
-						// error()
-					});
+				if (res.data?.data) {
+					setGetGroup(res.data?.data);
+				}
+			});
+	};
+	const OnSubmit = (e) => {
+		e.preventDefault();
+		const formData = new FormData();
+		console.log(token);
+		formData.append('profession', yonalish.current?.value);
+		formData.append('groupNumber', gr_raqam.current?.value);
+		formData.append('teacher', ustoz.current?.value);
+		formData.append('days', kun.current?.value);
+		formData.append('hours', vaqt.current?.value);
+		formData.append('image', rasm.current?.files[0]);
+		formData.append('roomName', hona.current?.value);
+		formData.append('secondaryTeacherId', yordamchiUstoz.current?.value);
+		console.log(yonalish.current?.value, 'rasm');
+		apiRoot
+			.post(`/group`, formData, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((res) => {
+				console.log(res.data);
+				if (res.data) {
+					getGroups();
+				}
+			});
+	};
+	const OnSubmitEdit = (e) => {
+		e.preventDefault();
+		const formData = new FormData();
+
+		console.log(id, 'iddd');
+		console.log(GroupOne?.image ,rasmEdit.current?.files[0]);
+		formData.append(
+			'profession',
+			yonalishEdit.current?.value || GroupOne?.profession
+		);
+		formData.append(
+			'groupNumber',
+			gr_raqamEdit.current?.value || GroupOne?.groupNumber
+		);
+		formData.append('teacher', ustozEdit.current?.value || GroupOne?.teacher);
+		formData.append('days', kunEdit.current?.value || GroupOne?.days);
+		if(rasmEdit.current?.files[0]){
+			formData.append('image', rasmEdit.current?.files[0] );
+		}else{
+			formData.append('image',  GroupOne?.image);
+
+		}
+		formData.append('hours', vaqtEdit.current?.value || GroupOne?.hours);
+		formData.append('roomName', honaEdit.current?.value);
+		formData.append(
+			'secondaryTeacherId',
+			yordamchiUstozEdit.current?.value || GroupOne?.secondaryTeacherId?._id
+		);
+		console.log(formData.entries());
+		apiRoot
+			.put(`/group/${id}`, formData, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((res) => {
+				console.log(res);
 			});
 	};
 	useEffect(() => {
 		apiRoot
-			.get(`/v1/events`, {
+			.get(`/group/skip=${0}/limit=${10}`, {
 				headers: {
-					Authorization: `${token}`,
+					Authorization: `Bearer ${token}`,
 				},
 			})
 			.then((res) => {
-				setGetEvent(res?.data);
+				setGetGroup(res.data?.data);
 			})
 			.catch(() => {
 				// error()
@@ -110,70 +179,58 @@ const Group = () => {
 
 	const getId = () => {
 		apiRoot
-			.get(`/v1/event/${id}`, {
+			.get(`/group/${id}`, {
 				headers: {
-					Authorization: `${token}`,
+					Authorization: `Bearer ${token}`,
 				},
 			})
 			.then((res) => {
-				setEventGetId(res?.data);
+				// setEventGetId(res?.data);
+				setGroupOne(res.data?.data);
 			})
 			.catch(() => {
 				// error()
 			});
 	};
-	// useEffect(() => {
-	//     if (what) {
-	//         getId()
-	//     }
-	// }, [what])
+	useEffect(() => {
+		if (openEdit) {
+			getId();
+		}
+	}, [openEdit]);
 
 	const onSubmitDalete = () => {
 		apiRoot
-			.delete(`/v1/event/${id}`, {
+			.delete(`/group/${idDelete}`, {
 				headers: {
-					Authorization: `${token}`,
+					Authorization: `Bearer ${token}`,
 				},
 			})
 			.then((res) => {
 				console.log(res?.data);
-				apiRoot
-					.get(`/v1/events`, {
-						headers: {
-							Authorization: `${token}`,
-						},
-					})
-					.then((res) => {
-						setGetEvent(res?.data);
-					})
-					.catch(() => {
-						// error()
-					});
 			})
 			.catch(() => {
 				// error()
 			});
 	};
-	const [getImage, setGetImage] = useState();
 
-	const handleSubmit1 = async (event) => {
-		event.preventDefault();
-		const formData = new FormData();
-		formData.append('file', event.target.files[0]);
-		apiRoot
-			.post(`/v1/file-upload`, formData, {
-				headers: { Authorization: `${token}` },
-			})
-			.then((res) => setGetImage(res?.data));
-	};
 	return (
 		<div className='event_menu'>
 			<Container fluid>
+			<div className="search_box">
+
+				<div className='form_control_search'>
+					<input
+						type='search'
+						placeholder='Search...'
+						required
+					/>
+				</div>
 				<div className='add_user_page'>
 					<div className='form_group_right' onClick={() => setOpen(true)}>
 						<img src={AddIcon} alt='adda_icon' />
 						{t('event.e1')}
 					</div>
+				</div>
 				</div>
 				<Table hover>
 					<thead className='table_head'>
@@ -189,102 +246,58 @@ const Group = () => {
 							{/* <th>{t('event.e24')}</th> */}
 							<th></th>
 							<th></th>
-						
 						</tr>
 					</thead>
 					<tbody className='table_body'>
-						{/* {getEvent?.data?.map((a, b) => (
+						{getGroup?.map((a, b) => (
 							<tr className='body_tr' key={b}>
 								<td>
 									<span>{++b}</span>
 								</td>
 								<td>
-									<span>{a?.title}</span>
+									<span>{a?.profession}</span>
 								</td>
 								<td>
-									<span>{a?.event_date.slice(0, 10)}</span>
+									<span>{a?.groupNumber}</span>
 								</td>
 								<td>
-									<span>{a?.worker?.length}</span>
+									<span>{a?.teacher}</span>
 								</td>
 								<td>
-									<span>
-										{a?.event_status === false ? (
-											<img src={Cancel} alt='cancel' />
-										) : (
-											<img src={Success} alt='cancel' />
-										)}
-									</span>
+									<span>{a?.secondaryTeacherId?.name}</span>
 								</td>
+								<td>
+									<span>{a?.days}</span>
+								</td>
+								<td>
+									<span>{a?.hours}</span>
+								</td>
+								<td>
+									<span>{a?.roomName}</span>
+								</td>
+
 								<td className='icon_link'>
 									<span
 										onClick={() => {
-											setWhat(true);
-											setId(a?.id);
+											setOpenEdit(true);
+											setId(a?._id);
 										}}
 									>
-										<img src={Info} alt='EDIT_ICON' />
+										<img src={Edit} alt='EDIT_ICON' />
 									</span>
 								</td>
 								<td className='icon_link'>
 									<span
 										onClick={() => {
 											setDalete(true);
-											setId(a?.id);
+											setIdDelete(a?._id);
 										}}
 									>
 										<img src={Dalate} alt='dalete_icon' />
 									</span>
 								</td>
 							</tr>
-						))} */}
-						<tr className='body_tr'>
-                        <td>
-								<span>1</span>
-							</td>
-							<td>
-								<span>{t('event.e17')}</span>
-							</td>
-							<td>
-								<span>N93</span>
-							</td>
-							<td>
-								<span>{t('event.e19')}</span>
-							</td>
-							<td>
-								<span>{t('event.e20')}</span>
-							</td>
-							<td>
-								<span>{t('event.e21')}</span>
-							</td>
-							<td>
-								<span>{t('event.e22')}</span>
-							</td>
-							<td>
-								<span>{t('event.e23')}</span>
-							</td>
-							<td className='icon_link'>
-								<span
-									// onClick={() => {
-									// 	setEdit(true);
-									// 	GetIdUser(a?.id);
-									// }}
-								>
-									<img src={Edit} alt='EDIT_ICON' />
-								</span>
-							</td>
-						
-							<td className='icon_link'>
-								<span
-								// onClick={() => {
-								// 	setDalete(true);
-								// 	setId(a?.id);
-								// }}
-								>
-									<img src={Dalate} alt='dalete_icon' />
-								</span>
-							</td>
-						</tr>
+						))}
 					</tbody>
 				</Table>
 			</Container>
@@ -303,17 +316,18 @@ const Group = () => {
 									placeholder={t('event.e17')}
 									required
 									autoComplete='off'
-									onChange={(e) => setEventTitle(e.target.value)}
+									ref={yonalish}
 								/>
 							</div>
 							<div className='form_control'>
 								<input
-									type='text'
+									type='number'
 									name='text'
 									id='input'
 									placeholder={t('event.e18')}
 									required
 									autoComplete='off'
+									ref={gr_raqam}
 								/>
 							</div>
 							<div className='form_control'>
@@ -324,17 +338,19 @@ const Group = () => {
 									placeholder={t('event.e19')}
 									required
 									autoComplete='off'
+									ref={ustoz}
 								/>
 							</div>
 							<div className='form_control'>
-								<input
+								{/* <input
 									type='text'
 									name='text'
 									id='input'
 									placeholder={t('event.e20')}
 									required
 									autoComplete='off'
-								/>
+									ref={yordamchiUstoz}
+								/> */}
 							</div>
 							<div className='form_control'>
 								<input
@@ -344,6 +360,7 @@ const Group = () => {
 									placeholder={t('event.e21')}
 									required
 									autoComplete='off'
+									ref={kun}
 								/>
 							</div>
 							<div className='form_control'>
@@ -354,6 +371,7 @@ const Group = () => {
 									placeholder={t('event.e22')}
 									required
 									autoComplete='off'
+									ref={vaqt}
 								/>
 							</div>
 							<div className='form_control'>
@@ -364,6 +382,7 @@ const Group = () => {
 									placeholder={t('event.e23')}
 									required
 									autoComplete='off'
+									ref={hona}
 								/>
 							</div>
 							<div className='form_control'>
@@ -373,48 +392,26 @@ const Group = () => {
 									name='file'
 									required
 									accept='image/*'
-									onChange={handleSubmit1}
 									id='file'
+									ref={rasm}
 								/>
 								<img src={UploadImage} alt='' />
 							</div>
-							<div className='form_control'>
-								<input
-									type='text'
-									name='text'
-									id='input'
-									placeholder={t('event.e24')}
-									required
-									autoComplete='off'
-								/>
-							</div>
 
 							<div className='form_control'>
-								<DatePicker
-									selected={startDate}
-									onChange={(date) => setStartDate(date)}
-									withPortal
-									dateFormat='d  MMMM, yyyy'
-									// valueOf="2 сентября 2022"
-									className='date_picker_input'
-									showMonthDropdown
-									showYearDropdown
-									// locale={t('languages')}
-								/>
+								<select
+									ref={yordamchiUstoz}
+									placeholder='Yordamchi ustoz qoshish'
+								>
+									{allname.length
+										? allname.map((el) => (
+												<option style={{ color: 'black' }} value={el.value}>
+													{el.label}
+												</option>
+										  ))
+										: 'Yordamchi oqtuvchilar yoq '}
+								</select>
 							</div>
-							{/* <div className='form_control'>
-								<Select
-									closeMenuOnSelect={false}
-									components={animatedComponents}
-									placeholder='larni qo`shish'
-									// defaultValue={[allname]}
-									isLoading={isLoading}
-									isSearchable={isSearchable}
-									isMulti
-									options={allname}
-									onChange={(value) => HandleChange(value)}
-								/>
-							</div> */}
 							<div className='btn_form'>
 								<div
 									className='add'
@@ -426,6 +423,137 @@ const Group = () => {
 									Qo‘shish
 								</div>
 								<a className='remove' onClick={() => setOpen(false)}>
+									Bekor qilish
+								</a>
+							</div>
+						</form>
+					</div>
+				</SuperModal>
+			)}
+			{openEdit && (
+				<SuperModal
+					set={setOpenEdit}
+					height={'auto'}
+					maxWidth={800}
+					cancel={false}
+				>
+					<div className='add_user_modal'>
+						<div className='title'>
+							<h4>{t('event.e6')}</h4>
+						</div>
+						<form className='form_add'>
+							<div className='form_control'>
+								<input
+									type='text'
+									name='text'
+									id='input'
+									placeholder={t('event.e17')}
+									required
+									autoComplete='off'
+									ref={yonalishEdit}
+									defaultValue={GroupOne?.profession}
+								/>
+							</div>
+							<div className='form_control'>
+								<input
+									type='number'
+									name='text'
+									id='input'
+									placeholder={t('event.e18')}
+									required
+									autoComplete='off'
+									ref={gr_raqamEdit}
+									defaultValue={GroupOne?.groupNumber}
+								/>
+							</div>
+							<div className='form_control'>
+								<input
+									type='text'
+									name='text'
+									id='input'
+									placeholder={t('event.e19')}
+									required
+									autoComplete='off'
+									ref={ustozEdit}
+									defaultValue={GroupOne?.teacher}
+								/>
+							</div>
+
+							<div className='form_control'>
+								<input
+									type='text'
+									name='text'
+									id='input'
+									placeholder={t('event.e21')}
+									required
+									autoComplete='off'
+									ref={kunEdit}
+									defaultValue={GroupOne?.days}
+								/>
+							</div>
+							<div className='form_control'>
+								<input
+									type='text'
+									name='text'
+									id='input'
+									placeholder={t('event.e22')}
+									required
+									autoComplete='off'
+									ref={vaqtEdit}
+									defaultValue={GroupOne?.hours}
+								/>
+							</div>
+							<div className='form_control'>
+								<input
+									type='text'
+									name='text'
+									id='input'
+									placeholder={t('event.e23')}
+									required
+									autoComplete='off'
+									ref={honaEdit}
+									defaultValue={GroupOne?.roomName}
+								/>
+							</div>
+							<div className='form_control'>
+								<label htmlFor='file'>{t('worker.w18')}</label>
+								<input
+									type='file'
+									name='file'
+									required
+									accept='image/*'
+									id='file'
+									ref={rasmEdit}
+								/>
+								<img src={UploadImage} alt='' />
+							</div>
+
+							<div className='form_control'>
+								<select
+									ref={yordamchiUstozEdit}
+									placeholder='Yordamchi ustoz qoshish'
+									defaultValue={GroupOne?.secondaryTeacherId?.name}
+								>
+									{allname.length
+										? allname.map((el) => (
+												<option style={{ color: 'black' }} value={el.value}>
+													{el.label}
+												</option>
+										  ))
+										: 'Yordamchi oqtuvchilar yoq '}
+								</select>
+							</div>
+							<div className='btn_form'>
+								<div
+									className='add'
+									onClick={(e) => {
+										OnSubmitEdit(e);
+										// setOpenEdit(false);
+									}}
+								>
+									Qo‘shish
+								</div>
+								<a className='remove' onClick={() => setOpenEdit(false)}>
 									Bekor qilish
 								</a>
 							</div>
