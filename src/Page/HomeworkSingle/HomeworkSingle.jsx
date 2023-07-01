@@ -213,14 +213,7 @@ apiRoot.post("/grade" ,data ,{
 							</div>
 							<div className='dalete_about'>
 								<img src={'http://localhost:4000/' + homeworkImg} alt='image' />
-								{/* <p>{'title:' + ' ' + title}</p>
-								<p>{'lesson:' + ' ' + lesson}</p>
-								<div className='psw'>
-								
-									<p>
-										Yuborilgan: <span> {send} </span>{' '}
-									</p>
-								</div> */}
+							
                                 <form style={{marginTop:"20px"}} onSubmit={(e)=>handleSubmit(e)} >
                                 <div className='form_control'>
 								<input

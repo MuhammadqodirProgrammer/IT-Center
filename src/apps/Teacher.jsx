@@ -12,6 +12,7 @@ import Message from '../Page/Message/Message';
 import { SingleGrade } from '../Page/SingleGrade/SingleGrade';
 import { SingleGroup } from '../Page/SingleGroup/SingleGroup';
 import Statistic from '../Page/Statistic/Statistic';
+import StatisticTeacher from '../Page/StatisticTeacher/Statistic';
 import Student from '../Page/Student/Student';
 
 export const Teacher = ({ mode, sms }) => {
@@ -37,7 +38,7 @@ export const Teacher = ({ mode, sms }) => {
 			<>
 				<LayoutTeacher mode={mode} sms={sms}>
 					<Routes>
-						<Route path='/' element={<Statistic />} />
+						<Route path='/' element={<StatisticTeacher />} />
 						<Route path='group' element={<GroupTeacher />} />
 						<Route path='group/:id' element={<SingleGroup />} />
 						<Route path='grade/:id' element={<SingleGrade />} />

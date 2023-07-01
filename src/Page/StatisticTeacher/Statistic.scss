@@ -1,0 +1,147 @@
+.stat_header {
+    display: flex;
+    align-items: end;
+    gap: 13px;
+
+    .calendar_item {
+        display: grid;
+        position: relative;
+        align-items: center;
+        justify-content: end;
+        background: #283046;
+        border-radius: 8px;
+        margin: 0 auto;
+        padding: 5px 12px;
+        p {
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 18px;
+            text-align: center;
+            letter-spacing: 0.4px;
+            color: #9FA2B4;
+            margin-bottom: 5px;
+        }
+
+        span {
+            display: flex;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 19px;
+            line-height: 24px;
+            letter-spacing: 0.4px;
+            color: #FFFFFF;
+        }
+    }
+
+    .date_item {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+
+        .form_group {
+            gap: 5px;
+            align-items: center;
+            display: flex;
+
+            label {
+                font-style: normal;
+                font-weight: 700;
+                font-size: 20px;
+                line-height: 25px;
+                color: #FFFFFF;
+            }
+
+            input[type="checkbox"] {
+                border: 0.5px solid #CCCCCC;
+                border-radius: 3px;
+                width: 17.25px;
+                height: 17.25px;
+                background-color: #7F73FF !important;
+            }
+
+            input:checked {
+                background-color: #002B4E;
+            }
+        }
+    }
+}
+
+.statistic {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 14px;
+
+    .time_moment {
+        background: #283046;
+        border-radius: 8px;
+        // height: 50px;
+        padding: 4px 10px;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 18px;
+        text-align: center;
+        letter-spacing: 0.4px;
+        color: #9FA2B4;
+        cursor: pointer;
+
+        span {
+            font-weight: 700;
+            font-size: 20px;
+            line-height: 25px;
+            text-align: center;
+            letter-spacing: 0.4px;
+            color: #FFFFFF;
+        }
+    }
+}
+
+
+
+#light .calendar_item {
+    label {
+        color: #1C2230;
+    }
+
+    input {
+        color: #1C2230;
+        border: 1px solid #1C2230;
+        background-color: #fff;
+    }
+}
+
+#light .date_item {
+    .form_group {
+        label {
+            color: #1C2230;
+        }
+
+        input[type="checkbox"] {
+            color: #1C2230;
+            border: 1px solid #1C2230;
+            background-color: #fff;
+        }
+    }
+}
+
+#light .chart_info {
+    background: #fff;
+
+    .attedance {
+        border-bottom: 1px solid #1C2230;
+
+        p {
+            color: #1C2230;
+        }
+
+        span {
+            color: #1C2230;
+        }
+
+        &:last-child {
+            border: none;
+        }
+    }
+}
