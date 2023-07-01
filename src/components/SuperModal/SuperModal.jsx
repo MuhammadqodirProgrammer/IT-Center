@@ -1,11 +1,11 @@
 import React from 'react'
 import "./SuperModal.scss";
 import CloseModal from '../../assets/image/closeModal.svg'
-const SuperModal = ({children, boolen, height,minHeight, set, maxWidth, cancel= true}) => {
+const SuperModal = ({children, boolen, height,minHeight, set, maxWidth, width, cancel= true}) => {
   return (
     <div className='super_modal'>
         <section className="myModals" id='myModal' aria-labelledby="contained-modal-title-vcenter">
-                <div className="myModal__rel" style={{height, maxWidth, minHeight}}>
+                <div className="myModal__rel" style={{height, maxWidth,width, minHeight}}>
                 { cancel &&
                     <div
                         className="myModals__close"

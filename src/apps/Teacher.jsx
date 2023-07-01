@@ -1,12 +1,18 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import Layout from '../components/Layout/Layout';
+import LayoutTeacher from '../components/LayoutTeacher/LayoutTeacher';
 import PageNotFound from '../Page/404page/PageNotFound';
 import Group from '../Page/Event/Event';
+import { Grade } from '../Page/Grade/Grade';
+import { GroupTeacher } from '../Page/GroupTeacher/GroupTeacher';
+import { Homework } from '../Page/Homework/Homework';
+import { HomeworkSingle } from '../Page/HomeworkSingle/HomeworkSingle';
 import Login from '../Page/Login/Login';
 import Message from '../Page/Message/Message';
+import { SingleGrade } from '../Page/SingleGrade/SingleGrade';
+import { SingleGroup } from '../Page/SingleGroup/SingleGroup';
 import Statistic from '../Page/Statistic/Statistic';
-import Worker from '../Page/Worker/Worker';
+import Student from '../Page/Student/Student';
 
 export const Teacher = ({ mode, sms }) => {
 	const token = localStorage.getItem('token');
@@ -29,18 +35,18 @@ export const Teacher = ({ mode, sms }) => {
 	} else {
 		return (
 			<>
-				<Layout mode={mode} sms={sms}>
+				<LayoutTeacher mode={mode} sms={sms}>
 					<Routes>
 						<Route path='/' element={<Statistic />} />
-						{/* <Route path='history' element={<History/>} /> */}
-						{/* <Route path='worker' element={<Worker/>} /> */}
-						{/* <Route path='table' element={<TablePage/>}/> */}
-						{/* <Route path='sections' element={<Sections/>}/> */}
-						<Route path='group' element={<Group />} />
-						<Route path='message/:id' element={<Message />} />
+						<Route path='group' element={<GroupTeacher />} />
+						<Route path='group/:id' element={<SingleGroup />} />
+						<Route path='grade/:id' element={<SingleGrade />} />
+						<Route path='grade' element={<Grade />} />
+						<Route path='homework' element={<Homework />} />
+						<Route path='homework/:id' element={<HomeworkSingle />} />
 						<Route path='*' element={<Navigate to={'/'} />} />
 					</Routes>
-				</Layout>
+				</LayoutTeacher>
 			</>
 		);
 	}

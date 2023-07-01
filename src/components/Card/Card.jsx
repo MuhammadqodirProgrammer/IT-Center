@@ -16,60 +16,7 @@ const Card = () => {
 	const [workerAll, setWorkerAll] = useState();
 	const [workerTop, setWorkerTop] = useState();
 
-	const OnSubmit = () => {
-		// apiRoot
-		// 	.get(`/v1/worker/count/${moment().format().slice(0, 10)}`, {
-		// 		headers: {
-		// 			Authorization: `Bearer ${token}`,
-		// 		},
-		// 	})
-		// 	.then((res) => {
-		// 		setWorker(res?.data);
-		// 		console.log(res?.data, 'sabab');
-		// 	});
-	};
-	const OnSubmit2 = () => {
-		// apiRoot
-		// 	.get(`/v1/get/workers/home/${moment().format().slice(0, 10)}`, {
-		// 		headers: {
-		// 			Authorization: `Bearer ${token}`,
-		// 		},
-		// 	})
-		// 	.then((res) => {
-		// 		setWorkerIn(res?.data);
-		// 		console.log(res?.data);
-		// 	});
-	};
-	const OnSubmit3 = () => {
-		// apiRoot
-		// 	.get(`/v1/worker/all/home`, {
-		// 		headers: {
-		// 			Authorization: `Bearer ${token}`,
-		// 		},
-		// 	})
-		// 	.then((res) => {
-		// 		setWorkerAll(res?.data);
-		// 		console.log(res?.data);
-		// 	});
-	};
-	const OnSubmit4 = () => {
-		// apiRoot
-		// 	.get(`/v1/worker/top`, {
-		// 		headers: {
-		// 			Authorization: `Bearer ${token}`,
-		// 		},
-		// 	})
-		// 	.then((res) => {
-		// 		setWorkerTop(res?.data);
-		// 		console.log(res?.data);
-		// 	});
-	};
-	useEffect(() => {
-		OnSubmit();
-		OnSubmit2();
-		OnSubmit3();
-		OnSubmit4();
-	}, []);
+
 	return (
 		<div className='tab_block'>
 			<Tabs

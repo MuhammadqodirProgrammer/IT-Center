@@ -18,6 +18,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import { error } from '../../services/Error';
 import { useTranslation } from 'react-i18next';
+
 const TablePage = ({ fill }) => {
 	const { t } = useTranslation();
 	const token = localStorage.getItem('token');

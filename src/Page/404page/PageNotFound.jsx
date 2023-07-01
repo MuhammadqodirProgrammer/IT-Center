@@ -1,7 +1,7 @@
 import React from 'react'
 import Page404 from '../../assets/image/404 webpage.svg'
 import './page404.scss'
-import Logo from '../../assets/image/astrolab-tizim-oq 1.svg'
+import Logo from '../../assets/image/logo.png'
 const PageNotFound = () => {
   const BackTo = () => {
     sessionStorage.removeItem("err")

@@ -15,7 +15,7 @@ import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import i18n from 'i18next';
 import Logo from '../../assets/image/logo.png';
-const Sidebar = ({ setOpen, drawer, setDrawer }) => {
+const SidebarTeacher = ({ setOpen, drawer, setDrawer }) => {
 	const { t, i18n } = useTranslation();
 	const handleId = (id) => {
 		setOpen(id);
@@ -43,23 +43,24 @@ const Sidebar = ({ setOpen, drawer, setDrawer }) => {
 					</li>
 		
 
-					<li>
-						<NavLink
-							to={'/worker'}
-							onClick={() => handleId(t('aside.employe'))}
-						>
-							<img src={Agent} alt='icon' />
-							{drawer && t('aside.employe')}
-						</NavLink>
-					</li>
+				
 					
 					<li>
 						<NavLink
-							to={'/student'}
-							onClick={() => handleId(t('card.card3'))}
+							to={'/homework'}
+							onClick={() => handleId(t('aside.homework'))}
 						>
 							<img src={Agent} alt='icon' />
-							{drawer && t('card.card3')}
+							{drawer && t('aside.homework')}
+						</NavLink>
+					</li>
+					<li>
+						<NavLink
+							to={'/grade'}
+							onClick={() => handleId(t('aside.baho'))}
+						>
+							<img src={Agent} alt='icon' />
+							{drawer && t('aside.baho')}
 						</NavLink>
 					</li>
 					<li>
@@ -82,4 +83,4 @@ const Sidebar = ({ setOpen, drawer, setDrawer }) => {
 	);
 };
 
-export default Sidebar;
+export default SidebarTeacher;

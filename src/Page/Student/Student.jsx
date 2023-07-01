@@ -6,11 +6,11 @@ import '../Worker/Worker.scss';
 import Edit from '../../assets/image/Group 9.svg';
 import Dalate from '../../assets/image/Group 10.svg';
 import UploadImage from '../../assets/image/upload.svg';
+import Lock from '../../assets/image/lock (1).png';
 import InputMask from 'react-input-mask';
 import apiRoot from '../../store/apiRoot';
 import axios from 'axios';
 import SuperModal from '../../components/SuperModal/SuperModal';
-import Lock from '../../assets/image/lock (1).png';
 import SMS from '../../assets/image/message-text.svg';
 import { useNavigate } from 'react-router-dom';
 import MyPagination from '../../components/MyPagination/MyPagination';
@@ -233,6 +233,25 @@ const phoneNumber =(changephone).replaceAll('-' ,"").replaceAll(" " , "").replac
 	const HandleChangePage = useCallback((page) => {
 		setPage(page);
 	}, []);
+	const handleSearch = (e) => {
+		e.preventDefault();
+		const search = e.target?.value.toLowerCase();
+		console.log(search);
+		apiRoot
+			.get(`/searchStudent/search=${search}`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((res) => {
+				setUser(res.data?.data);
+			})
+			.catch(() => {
+				// error()
+			});
+	
+	
+	};
 	// user?.data?.workers?.sort((a, b) => a?.wname?.localeCompare(b?.wname));
 	return (
 		<div className='worker_section'>
@@ -243,7 +262,7 @@ const phoneNumber =(changephone).replaceAll('-' ,"").replaceAll(" " , "").replac
 							type='search'
 							placeholder='Search...'
 							required
-							ref={surnameRef}
+							onInput={(e)=>handleSearch(e)}
 						/>
 					</div>
 					<form action='' className='add_user_page'>
@@ -260,7 +279,7 @@ const phoneNumber =(changephone).replaceAll('-' ,"").replaceAll(" " , "").replac
 							<th>{t('worker.w1')}</th>
 							<th>{t('worker.w2')}</th>
 							<th>{t('worker.w3')}</th>
-							<th>{t('worker.w4')}</th>
+							<th>{t('worker.w20')}</th>
 							<th>{t('worker.w5')}</th>
 							<th>{t('worker.w6')}</th>
 							<th></th>
@@ -293,7 +312,7 @@ const phoneNumber =(changephone).replaceAll('-' ,"").replaceAll(" " , "").replac
 												<span>{a?.telegramUsername}</span>
 											</td>
 											<td>
-												<span>{a?.profession}</span>
+												<span>{a?.groupId?.profession +" "+a?.groupId?.groupNumber}</span>
 											</td>
 											<td>
 												<span>{a?.phoneNumber}</span>

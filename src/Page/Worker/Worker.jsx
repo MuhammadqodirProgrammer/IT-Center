@@ -81,7 +81,6 @@ const Worker = () => {
 			.catch(() => {
 				// error()
 			});
-		// apiRoot
 	
 	};
 	const onSubmit = (e) => {
@@ -195,25 +194,23 @@ const Worker = () => {
 	}, []);
 	const handleSearch = (e) => {
 		e.preventDefault();
-		console.log(user);
-
 		const search = e.target?.value.toLowerCase();
-
-		if (search) {
-			const newTeacher = user.filter((el) =>
-				el.name?.toLowerCase().includes(search)
-			);
-
-			setUser(newTeacher);
-		} else if (!search) {
-			GetUser();
-		} else {
-			const newTeacher = user.filter((el) =>
-				el.name?.toLowerCase().includes(search)
-			);
-
-			setUser(newTeacher);
-		}
+		console.log(search);
+		apiRoot
+			.get(`/searchTeacher/search=${search}`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((res) => {
+				console.log(res.data?.data);
+				setUser(res.data?.data);
+			})
+			.catch(() => {
+				// error()
+			});
+	
+	
 	};
 	return (
 		<div className='worker_section'>

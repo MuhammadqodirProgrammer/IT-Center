@@ -212,7 +212,25 @@ const Group = () => {
 				// error()
 			});
 	};
-
+	const handleSearch = (e) => {
+		e.preventDefault();
+		const search = e.target?.value.toLowerCase();
+		console.log(search);
+		apiRoot
+			.get(`/searchGroup/search=${search}`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((res) => {
+				setGetGroup(res.data?.data);
+			})
+			.catch(() => {
+				// error()
+			});
+	
+	
+	};
 	return (
 		<div className='event_menu'>
 			<Container fluid>
@@ -221,8 +239,8 @@ const Group = () => {
 				<div className='form_control_search'>
 					<input
 						type='search'
-						placeholder='Search...'
-						required
+						placeholder='Search by group number...'
+						onInput={(e)=>handleSearch(e)}
 					/>
 				</div>
 				<div className='add_user_page'>
