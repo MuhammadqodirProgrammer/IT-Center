@@ -22,14 +22,6 @@ const StatisticTeacher = () => {
             <Card />
         </Row>
       </Container>
-      <Container fluid>
-            <Row>
-                <Col md="8">
-
-                </Col>
-                
-            </Row>
-      </Container>
     </>
   )
 }

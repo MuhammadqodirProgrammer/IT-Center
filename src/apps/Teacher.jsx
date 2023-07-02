@@ -38,8 +38,8 @@ export const Teacher = ({ mode, sms }) => {
 			<>
 				<LayoutTeacher mode={mode} sms={sms}>
 					<Routes>
-						<Route path='/' element={<StatisticTeacher />} />
-						<Route path='group' element={<GroupTeacher />} />
+						{/* <Route path='/' element={<StatisticTeacher />} /> */}
+						<Route path='/' element={<GroupTeacher />} />
 						<Route path='group/:id' element={<SingleGroup />} />
 						<Route path='grade/:id' element={<SingleGrade />} />
 						<Route path='grade' element={<Grade />} />

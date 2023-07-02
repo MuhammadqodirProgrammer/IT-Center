@@ -10,20 +10,6 @@ import apiRoot from "../../store/apiRoot";
 // import jwtDecode from 'jwt-decode'
 const Profile = () => {
   const token = localStorage.getItem("token");
-  const getProfile = () => {
-    apiRoot
-      .get(`/teacher/self`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
   const { t } = useTranslation();
   const ref = useRef();
@@ -31,7 +17,6 @@ const Profile = () => {
   // const decoded = jwtDecode(token)
   const navigate = useNavigate();
   useEffect(() => {
-	getProfile();
     const checkIfClickedOutside = (e) => {
       // If the menu is open and the clicked target is not within the menu,
       // then close the menu
@@ -54,8 +39,10 @@ const Profile = () => {
         {/* {decoded?.iss} {decoded?.role} */}
         {localStorage.getItem("role") == "admin" ? (
           <h6 style={{ paddingTop: "10px" }}>Admin</h6>
+        ) : localStorage.getItem("role") == "teacher" ? (
+          <h6 style={{ paddingTop: "10px" }}>Teacher</h6>
         ) : (
-          ""
+          <h6 style={{ paddingTop: "10px" }}>Student</h6>
         )}
         {localStorage.getItem("role") == "teacher" ? (
           <img src={UserImage} alt="user" />

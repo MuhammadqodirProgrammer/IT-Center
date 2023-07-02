@@ -3,6 +3,7 @@ import './Sidebar.scss';
 import Humburger from '../../assets/image/humburger.svg';
 import Statistic from '../../assets/image/6. articles.svg';
 import Agent from '../../assets/image/5. agents.svg';
+import Homework from '../../assets/image/homework.svg';
 import Contact from '../../assets/image/4. contacts.svg';
 import Svg1 from '../../assets/image/1. overview.svg';
 import Ticket from '../../assets/image/2. tickets.svg';
