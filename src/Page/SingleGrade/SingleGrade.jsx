@@ -6,7 +6,7 @@ import Edit from '../../assets/image/Group 9.svg';
 import Dalate from '../../assets/image/Group 10.svg';
 import UploadImage from '../../assets/image/upload.svg';
 import Lock from '../../assets/image/lock (1).png';
-import "../Homework/homework.scss"
+import '../Homework/homework.scss';
 import '../SingleGroup/singleGroup.scss';
 import { useTranslation } from 'react-i18next';
 import SuperModal from '../../components/SuperModal/SuperModal';
@@ -22,9 +22,9 @@ export const SingleGrade = () => {
 	const [student, setStudent] = useState([]);
 	const [allStudent, setAllStudent] = useState([]);
 	const [getGroup, setGetGroup] = useState([]);
-    const [check, setCheck] = useState(false);
+	const [check, setCheck] = useState(false);
 	const [homework, setHomework] = useState([]);
-    const [homeworkImg, setHomeworkImg] = useState();
+	const [homeworkImg, setHomeworkImg] = useState();
 	const [title, setTitle] = useState();
 	const [lesson, setLesson] = useState();
 	const [send, setSend] = useState();
@@ -35,7 +35,7 @@ export const SingleGrade = () => {
 	const [name, setName] = useState();
 	const [homId, sethomId] = useState();
 	const [hId, sethId] = useState();
-	
+
 	const getStudents = () => {
 		apiRoot
 			.get(`/student`, {
@@ -70,24 +70,26 @@ export const SingleGrade = () => {
 											el.homeworkId?.studentId == el1._id &&
 											el1.groupId?._id == el.homeworkId?.groupId
 										) {
-                                            console.log(el ,"el");
+											console.log(el, 'el');
 											el1.baho = el.rank;
 											el1.description = el.description;
-                                            el1.homeworkId =el.homeworkId?._id
-                                         el1.gradeId =el?._id
+											el1.homeworkId = el.homeworkId?._id;
+											el1.gradeId = el?._id;
 										} else {
 											el1.baho = 0;
 											el1.description = '';
-                                            el1.homeworkId =null
-                                            el1.gradeId =null
+											el1.homeworkId = null;
+											el1.gradeId = null;
 										}
 									});
 									return el1;
 								});
-								const last = newData.filter((el) => el.groupId?._id == id && el.gradeId );
+								const last = newData.filter(
+									(el) => el.groupId?._id == id && el.gradeId
+								);
 								setAllStudent(last);
-                                console.log(last ,"last");
-                                console.log(newData ,"newData");
+								console.log(last, 'last');
+								console.log(newData, 'newData');
 							}
 						});
 				}
@@ -108,7 +110,7 @@ export const SingleGrade = () => {
 			});
 	};
 	const getHomeworkOne = (id) => {
-		console.log(img ,"img");
+		console.log(img, 'img');
 		apiRoot
 			.get(`/check/homework/${id}`, {
 				headers: {
@@ -116,7 +118,7 @@ export const SingleGrade = () => {
 				},
 			})
 			.then((res) => {
-				console.log(res.data?.data, 'data');
+				console.log(res.data?.data, 'dataaaa');
 				const homeworkOne = res.data?.data;
 				if (homeworkOne) {
 					setHomeworkImg(homeworkOne[0]?.image);
@@ -132,36 +134,44 @@ export const SingleGrade = () => {
 				}
 			});
 	};
-    const handleSubmit =(e)=>{
-        e.preventDefault()
-        console.log(homId ,"homId");
-        const data ={
-            title:title,
-            lesson:lesson,
-            homeworkId:hId,
-            rank: +bahoRef.current?.value,
-            description:descRef.current?.value,
-        }
-        console.log(data);
-        apiRoot.put(`/editGrade/${homId} `,data ,{
-            headers: {
-                Authorization: `Bearer ${token}`,
-            }
-        }).then(res => {
-            console.log(res.data);
-           if(res.data){
-            console.log(res.data);
-           }
-        }).catch((error) => {
-            error()
-        });
-        
-        }
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		console.log(homId, 'homId');
+		setCode(false)
+		const data = {
+			title: title,
+			lesson: lesson,
+			homeworkId: hId,
+			rank: +bahoRef.current?.value,
+			description: descRef.current?.value,
+		};
+		console.log(data);
+		apiRoot
+			.put(`/editGrade/${homId} `, data, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((res) => {
+				console.log(res.data);
+				if (res.data) {
+					console.log(res.data);
+				}
+			})
+			.catch((error) => {
+				error();
+			});
+	};
 	useEffect(() => {
 		getGroups();
 		getStudents();
 		console.log(getGroup[0], 'single');
 	}, []);
+	useEffect(() => {
+		getGroups();
+		getStudents();
+		console.log(getGroup[0], 'single');
+	}, [code]);
 	console.log(id);
 	return (
 		<div>
@@ -219,7 +229,7 @@ export const SingleGrade = () => {
 																setCheck(true);
 																getHomeworkOne(a?.homeworkId);
 																setCode(true);
-                                                                sethId(a?.homeworkId)
+																sethId(a?.homeworkId);
 																sethomId(a?.gradeId);
 																setImg(a?.image);
 															}}
@@ -233,6 +243,7 @@ export const SingleGrade = () => {
 							</tbody>
 						</Table>
 					</div>
+					
 				</Container>
 			</div>
 
@@ -246,7 +257,7 @@ export const SingleGrade = () => {
 				>
 					<div className='dalete_user'>
 						<div className='title'>
-							<h4> {name}ning  vazifasi O'zgrtirish</h4>
+							<h4> {name}ning vazifasi O'zgrtirish</h4>
 						</div>
 						<div className='dalete_about'>
 							<img src={'http://localhost:4000/' + homeworkImg} alt='image' />
@@ -259,7 +270,7 @@ export const SingleGrade = () => {
 									<input
 										type='number'
 										id='input'
-										placeholder='Baho'
+										placeholder=' Edit Grade'
 										required
 										autoComplete='off'
 										ref={bahoRef}
@@ -267,14 +278,16 @@ export const SingleGrade = () => {
 								</div>
 								<div className='form_control'>
 									<textarea
-										placeholder='Description'
+										placeholder='Edit Description'
 										cols='3'
 										rows='10'
 										ref={descRef}
 									></textarea>
 								</div>
 
-								<button className='mybtn'>Send</button>
+								<button className='mybtn' type="submit" >
+									Send
+								</button>
 							</form>
 						</div>
 					</div>

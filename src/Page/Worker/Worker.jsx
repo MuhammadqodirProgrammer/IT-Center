@@ -47,6 +47,7 @@ const Worker = () => {
 	const [render, setRender] = useState(false);
 	const [code, setCode] = useState(false);
 	const [psw, setPws] = useState();
+	const [allPage, setAllPage] = useState();
 	const [unId, setUnId] = useState();
 	const [remove, setRemove] = useState();
 	const [time, setTime] = useState();
@@ -69,23 +70,29 @@ const Worker = () => {
 	console.log(token);
 	const GetUser = () => {
 		apiRoot
-			.get(`/teacher/skip=${1}/limit=${10}`, {
+			.get(`/teacher/skip=${page}/limit=${10}`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
 			})
 			.then((res) => {
-				console.log(res);
+				// setPage(res.data?.total_page)
+				setAllPage(res.data?.total_page)
+				console.log(res.data ,"mygada" );
 				setUser(res.data?.data);
+				
 			})
 			.catch(() => {
 				// error()
 			});
-	
 	};
 	const onSubmit = (e) => {
 		e.preventDefault();
-		const phoneNumber =(phoneRef.current?.value).replaceAll('-' ,"").replaceAll(" " , "").replaceAll("(" ,"").replaceAll(")" ,"")
+		const phoneNumber = (phoneRef.current?.value)
+			.replaceAll('-', '')
+			.replaceAll(' ', '')
+			.replaceAll('(', '')
+			.replaceAll(')', '');
 
 		const formData = new FormData();
 		console.log(token);
@@ -104,7 +111,7 @@ const Worker = () => {
 				},
 			})
 			.then((res) => {
-				console.log(res.data?.data);
+				console.log(res.data);
 				if (res.data?.data) {
 					GetUser();
 				}
@@ -144,7 +151,11 @@ const Worker = () => {
 	// GetIdUser()
 	const onSubmitUpdate = (e) => {
 		e.preventDefault();
-		const phoneNumber =(changephone).replaceAll('-' ,"").replaceAll(" " , "").replaceAll("(" ,"").replaceAll(")" ,"")
+		const phoneNumber = changephone
+			.replaceAll('-', '')
+			.replaceAll(' ', '')
+			.replaceAll('(', '')
+			.replaceAll(')', '');
 
 		const formData = new FormData();
 		formData.append('name', changefio);
@@ -186,6 +197,7 @@ const Worker = () => {
 
 	useEffect(() => {
 		GetUser();
+		console.log(user.length ,"user");
 		// GetIdUser()
 	}, [open, id, render, remove, page]);
 
@@ -209,8 +221,6 @@ const Worker = () => {
 			.catch(() => {
 				// error()
 			});
-	
-	
 	};
 	return (
 		<div className='worker_section'>
@@ -319,11 +329,11 @@ const Worker = () => {
 							: 'Yordamchi oqtuvchilar yoq'}
 					</tbody>
 				</Table>
-				{user?.total_page > 1 && (
+				{allPage >1 && (
 					<MyPagination
-						total={user?.total_page}
+						total={allPage }
 						current={page}
-						// ref={}
+						onChangePage={HandleChangePage}
 					/>
 				)}
 			</Container>

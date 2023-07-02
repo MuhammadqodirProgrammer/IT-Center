@@ -5,7 +5,7 @@ import apiRoot from '../../store/apiRoot';
 import '../GroupTeacher/grouppage.scss';
 import Edit from '../../assets/image/Group 9.svg';
 import '../SingleGroup/singleGroup.scss';
-import "../Homework/homework.scss"
+import '../Homework/homework.scss';
 import SuperModal from '../../components/SuperModal/SuperModal';
 import { useParams } from 'react-router-dom';
 
@@ -14,8 +14,8 @@ export const HomeworkSingle = () => {
 	const { id } = useParams();
 	const { t } = useTranslation();
 	const [code, setCode] = useState(false);
-const bahoRef = useRef();
-const descRef = useRef();
+	const bahoRef = useRef();
+	const descRef = useRef();
 	const [worker, setWorker] = useState();
 	const [homeworkImg, setHomeworkImg] = useState();
 	const [title, setTitle] = useState();
@@ -29,18 +29,23 @@ const descRef = useRef();
 	const [homeworkId, setHomeworkId] = useState();
 	const [check, setCheck] = useState(false);
 	const [homework, setHomework] = useState([]);
+	const [lessonSend, setLessonSend] = useState('');
+	const [rankSend, setRankSend] = useState('');
+	const [descSend, setDescSend] = useState('');
+	const [usernameSend, setUsernameSend] = useState('');
 
 	const getHomeworks = () => {
 		apiRoot
-			.get(`/check/homework`, {
+			.get('/check/homework', {
 				headers: {
-					Authorization: `Bearer ${token}`,
+					Authorization: ` Bearer ${token}`,
 				},
 			})
 			.then((res) => {
 				console.log(res.data?.data);
 				const allHemework = res.data?.data;
 				if (allHemework) {
+					setUsernameSend();
 					setHomework(allHemework);
 				}
 			});
@@ -54,6 +59,7 @@ const descRef = useRef();
 				return arr;
 			}
 		});
+
 		return arr;
 	};
 	useEffect(() => {
@@ -61,28 +67,69 @@ const descRef = useRef();
 		console.log(render(8), 'render');
 		console.log(homework);
 	}, []);
-const handleSubmit =(e)=>{
-e.preventDefault()
-const data ={
-    title:title,
-    lesson:lesson,
-    homeworkId:homId,
-    rank:bahoRef.current?.value,
-    description:descRef.current?.value,
-}
-console.log(data);
-apiRoot.post("/grade" ,data ,{
-    headers: {
-        Authorization: `Bearer ${token}`,
-    }
-}).then(res => {
-    console.log(res);
-   if(res.data){
-    console.log(res.data);
-   }
-})
 
-}
+	let tg = {
+		token: '6375534273:AAHxSWcYmnqikb_Rw9lehYkm6XihuEuwHww',
+		chat_id: '-1001868125365',
+	};
+
+	function sendMessage() {
+		console.log(lessonSend);
+		console.log(rankSend);
+		console.log(descSend);
+		const url = `https://api.telegram.org/bot${tg.token}/sendMessage?chat_id=${
+			tg.chat_id
+		}&text=${` Lesson: ${lessonSend != undefined ? lessonSend : ''} \n Rank: ${
+			rankSend != undefined ? rankSend : ''
+		} \n  Description: ${descSend != undefined ? descSend : ''}`}`;
+
+		const xht = new XMLHttpRequest();
+		xht.onreadystatechange = function () {
+			if (xht.readyState == XMLHttpRequest.DONE) {
+				if (JSON.parse(xht.responseText).ok) {
+					alert('Message sent successfully');
+				}
+			}
+		};
+		xht.open('GET', url);
+		xht.send();
+	}
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		setCode(false)
+		const data = {
+			title: title,
+			lesson: lesson,
+			homeworkId: homId,
+			rank: bahoRef.current?.value,
+			description: descRef.current?.value,
+		};
+		setLessonSend(lesson);
+		setRankSend(bahoRef.current?.value);
+		setDescSend(descRef.current?.value);
+		console.log(data);
+		apiRoot
+			.post('/grade', data, {
+				headers: {
+					Authorization: ` Bearer ${token}`,
+				},
+			})
+			.then((res) => {
+				console.log(res);
+				if (res.data) {
+					console.log(res.data);
+				}
+			});
+		if (
+			lessonSend != undefined ||
+			rankSend != undefined ||
+			descSend != undefined
+		) {
+			sendMessage();
+		}
+	};
+
 	const getHomeworkOne = (id) => {
 		console.log(id);
 		apiRoot
@@ -106,6 +153,9 @@ apiRoot.post("/grade" ,data ,{
 					);
 					// setHomework(res.data?.data);
 				}
+			})
+			.catch((err) => {
+				console.log(err);
 			});
 	};
 	const tabs = [];
@@ -113,8 +163,8 @@ apiRoot.post("/grade" ,data ,{
 		tabs.push(i);
 	}
 	useEffect(() => {
-		// getHomeworkOne()
-		console.log(homeworkImg, 'homeworkImg');
+		getHomeworkOne();
+		// console.log(homeworkImg, "homeworkImg");
 	}, [check]);
 	return (
 		<div className='teacher_section'>
@@ -187,7 +237,7 @@ apiRoot.post("/grade" ,data ,{
 																					setCheck(true);
 																					getHomeworkOne(a?._id);
 																					setCode(true);
-                                                                                    sethomId(a?._id)
+																					sethomId(a?._id);
 																				}}
 																			>
 																				<img src={Edit} alt='EDIT_ICON' />
@@ -206,35 +256,45 @@ apiRoot.post("/grade" ,data ,{
 				</Tabs>
 
 				{code && (
-					<SuperModal set={setCode} height="88vh" maxWidth={830} width={700}cancel={true}>
+					<SuperModal
+						set={setCode}
+						height='88vh'
+						maxWidth={830}
+						width={700}
+						cancel={true}
+					>
 						<div className='dalete_user'>
 							<div className='title'>
 								<h4> {name}ning Yuborilgan vazifasi</h4>
 							</div>
 							<div className='dalete_about'>
 								<img src={'http://localhost:4000/' + homeworkImg} alt='image' />
-							
-                                <form style={{marginTop:"20px"}} onSubmit={(e)=>handleSubmit(e)} >
-                                <div className='form_control'>
-								<input
-									type='number'
-									id='input'
-									placeholder="Baho"
-									required
-									autoComplete='off'
-									ref={bahoRef}
-								/>
-							</div>
-                            <div className='form_control'>
-                            <textarea  placeholder='Description' cols="3" rows="10"
-									ref={descRef}
-                            
-                            ></textarea>
-								
-							</div>
 
-                                <button className='mybtn'>Send</button>
-                                </form>
+								<form
+									style={{ marginTop: '20px' }}
+									onSubmit={(e) => handleSubmit(e)}
+								>
+									<div className='form_control'>
+										<input
+											type='number'
+											id='input'
+											placeholder='Baho'
+											required
+											autoComplete='off'
+											ref={bahoRef}
+										/>
+									</div>
+									<div className='form_control'>
+										<textarea
+											placeholder='Description'
+											cols='3'
+											rows='10'
+											ref={descRef}
+										></textarea>
+									</div>
+
+									<button className='mybtn' >Send</button>
+								</form>
 							</div>
 						</div>
 					</SuperModal>

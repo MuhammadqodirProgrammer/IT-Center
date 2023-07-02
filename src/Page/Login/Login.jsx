@@ -64,8 +64,8 @@ export const Login = () => {
 
 				if (response?.data) {
 					localStorage.setItem('token', response?.data?.token);
-					localStorage.setItem('role', response?.data?.role);
-					// window.location.reload();
+					localStorage.setItem('role', "student");
+					window.location.reload();
 				}
 			})
 			.catch((err) => {

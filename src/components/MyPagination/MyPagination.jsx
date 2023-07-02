@@ -12,6 +12,8 @@ export default function MyPagination({total, current, onChangePage}) {
         </Pagination.Item>
     )
   }
+  console.log(current ,"current");
+  console.log(total ,"total");
   if(current < total){
     items.push(<Pagination.Next key="next" onClick={()=>onChangePage(current + 1)}/>)
   }

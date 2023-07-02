@@ -16,6 +16,7 @@ import UploadImage from '../../assets/image/upload.svg';
 import Edit from '../../assets/image/Group 9.svg';
 
 import { useTranslation } from 'react-i18next';
+import MyPagination from '../../components/MyPagination/MyPagination';
 const Group = () => {
 	const { t } = useTranslation();
 	const token = localStorage.getItem('token');
@@ -55,10 +56,12 @@ const Group = () => {
 	const [eventGetId, setEventGetId] = useState();
 	const [dalete, setDalete] = useState(false);
 	const animatedComponents = makeAnimated();
+	const [allPage, setAllPage] = useState();
+	const [page, setPage] = useState(1);
 	useEffect(() => {
 		getGroups();
 		apiRoot
-			.get(`/teacher/skip=${0}/limit=${10}`, {
+			.get(`/teacher/skip=${1}/limit=${10}`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
@@ -81,18 +84,20 @@ const Group = () => {
 		});
 		return option;
 	};
-	const HandleChange = (eventId) => {
-		setEventId(eventId);
-	};
+	const HandleChangePage = useCallback((page) => {
+		setPage(page);
+	}, []);
 	const getGroups = () => {
 		apiRoot
-			.get(`/group/skip=${0}/limit=${10}`, {
+			.get(`/group/skip=${page}/limit=${10}`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
 			})
 			.then((res) => {
 				if (res.data?.data) {
+					console.log(page ,"page");
+					setAllPage(res.data?.total_page)
 					setGetGroup(res.data?.data);
 				}
 			});
@@ -128,7 +133,7 @@ const Group = () => {
 		const formData = new FormData();
 
 		console.log(id, 'iddd');
-		console.log(GroupOne?.image ,rasmEdit.current?.files[0]);
+		console.log(GroupOne?.image, rasmEdit.current?.files[0]);
 		formData.append(
 			'profession',
 			yonalishEdit.current?.value || GroupOne?.profession
@@ -139,11 +144,10 @@ const Group = () => {
 		);
 		formData.append('teacher', ustozEdit.current?.value || GroupOne?.teacher);
 		formData.append('days', kunEdit.current?.value || GroupOne?.days);
-		if(rasmEdit.current?.files[0]){
-			formData.append('image', rasmEdit.current?.files[0] );
-		}else{
-			formData.append('image',  GroupOne?.image);
-
+		if (rasmEdit.current?.files[0]) {
+			formData.append('image', rasmEdit.current?.files[0]);
+		} else {
+			formData.append('image', GroupOne?.image);
 		}
 		formData.append('hours', vaqtEdit.current?.value || GroupOne?.hours);
 		formData.append('roomName', honaEdit.current?.value);
@@ -164,7 +168,7 @@ const Group = () => {
 	};
 	useEffect(() => {
 		apiRoot
-			.get(`/group/skip=${0}/limit=${10}`, {
+			.get(`/group/skip=${1}/limit=${10}`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
@@ -196,7 +200,15 @@ const Group = () => {
 		if (openEdit) {
 			getId();
 		}
+		if(!openEdit){
+			getGroups()
+
+		}
 	}, [openEdit]);
+
+	useEffect(() => {
+		getGroups()
+	}, [page]);
 
 	const onSubmitDalete = () => {
 		apiRoot
@@ -228,27 +240,24 @@ const Group = () => {
 			.catch(() => {
 				// error()
 			});
-	
-	
 	};
 	return (
 		<div className='event_menu'>
 			<Container fluid>
-			<div className="search_box">
-
-				<div className='form_control_search'>
-					<input
-						type='search'
-						placeholder='Search by group number...'
-						onInput={(e)=>handleSearch(e)}
-					/>
-				</div>
-				<div className='add_user_page'>
-					<div className='form_group_right' onClick={() => setOpen(true)}>
-						<img src={AddIcon} alt='adda_icon' />
-						{t('event.e1')}
+				<div className='search_box'>
+					<div className='form_control_search'>
+						<input
+							type='search'
+							placeholder='Search by group number...'
+							onInput={(e) => handleSearch(e)}
+						/>
 					</div>
-				</div>
+					<div className='add_user_page'>
+						<div className='form_group_right' onClick={() => setOpen(true)}>
+							<img src={AddIcon} alt='adda_icon' />
+							{t('event.e1')}
+						</div>
+					</div>
 				</div>
 				<Table hover>
 					<thead className='table_head'>
@@ -318,6 +327,13 @@ const Group = () => {
 						))}
 					</tbody>
 				</Table>
+				{allPage >1 && (
+					<MyPagination
+						total={allPage }
+						current={page}
+						onChangePage={HandleChangePage}
+					/>
+				)}
 			</Container>
 			{open && (
 				<SuperModal set={setOpen} height={'auto'} maxWidth={800} cancel={false}>
@@ -566,7 +582,7 @@ const Group = () => {
 									className='add'
 									onClick={(e) => {
 										OnSubmitEdit(e);
-										// setOpenEdit(false);
+										setOpenEdit(false);
 									}}
 								>
 									Qo‘shish

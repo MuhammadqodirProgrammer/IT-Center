@@ -62,20 +62,21 @@ const Student = () => {
 	const yonalishRef = useRef();
 	const groupSelect = useRef();
 	const groupSelectEdit = useRef();
+	const [allPage, setAllPage] = useState();
 
 	const [allname, setAllname] = useState('');
 
 	useEffect(() => {
 		apiRoot
-			.get(`/group/skip=${0}/limit=${10}`, {
+			.get(`/group/skip=${1}/limit=${10}`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
 			})
 			.then((res) => {
 				setAllname(SelectDate(res?.data?.data));
-				console.log(res.data.data, 'data');
-				console.log(SelectDate(res?.data?.data), 'mydaa');
+				
+				console.log(res.data, 'dataaaaaaaaaaa');
 			})
 			.catch(() => {
 				// error()
@@ -94,22 +95,27 @@ const Student = () => {
 
 	const GetUser = () => {
 		apiRoot
-			.get(`/student/skip=${0}/limit=${10}`, {
+			.get(`/student/skip=${page}/limit=${10}`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
 			})
 			.then((res) => {
+				setAllPage(res.data?.total_page)
+				console.log(res.data);
 				setUser(res.data?.data);
 			})
 			.catch(() => {
 				// error()
 			});
-	
 	};
 	const onSubmit = (e) => {
 		e.preventDefault();
-const phoneNumber =(phoneRef.current?.value).replaceAll('-' ,"").replaceAll(" " , "").replaceAll("(" ,"").replaceAll(")" ,"")
+		const phoneNumber = (phoneRef.current?.value)
+			.replaceAll('-', '')
+			.replaceAll(' ', '')
+			.replaceAll('(', '')
+			.replaceAll(')', '');
 
 		const formData = new FormData();
 		console.log(token);
@@ -117,7 +123,7 @@ const phoneNumber =(phoneRef.current?.value).replaceAll('-' ,"").replaceAll(" " 
 		formData.append('surname', surnameRef.current?.value);
 		formData.append('age', ageRef.current?.value);
 		formData.append('groupId', groupSelect.current?.value);
-		formData.append('phoneNumber',phoneNumber );
+		formData.append('phoneNumber', phoneNumber);
 		formData.append('image', imageRef.current?.files[0]);
 		formData.append('telegramUsername', tgUserNameRef.current?.value);
 		formData.append('jins', jinsRef.current?.value);
@@ -144,8 +150,8 @@ const phoneNumber =(phoneRef.current?.value).replaceAll('-' ,"").replaceAll(" " 
 			});
 	};
 	const GetIdUser = (ids) => {
-		console.log(ids ,"id");
-		setupdateId(ids)
+		console.log(ids, 'id');
+		setupdateId(ids);
 		apiRoot
 			.get(`/student/${ids}`, {
 				headers: {
@@ -172,7 +178,7 @@ const phoneNumber =(phoneRef.current?.value).replaceAll('-' ,"").replaceAll(" " 
 				setPws(res?.data?.data?.phoneNumber);
 			})
 			.catch((err) => {
-				console.log(err);
+				// console.log(err);
 				// error()
 			});
 	};
@@ -180,7 +186,11 @@ const phoneNumber =(phoneRef.current?.value).replaceAll('-' ,"").replaceAll(" " 
 	const onSubmitUpdate = (e) => {
 		e.preventDefault();
 		const formData = new FormData();
-const phoneNumber =(changephone).replaceAll('-' ,"").replaceAll(" " , "").replaceAll("(" ,"").replaceAll(")" ,"")
+		const phoneNumber = changephone
+			.replaceAll('-', '')
+			.replaceAll(' ', '')
+			.replaceAll('(', '')
+			.replaceAll(')', '');
 
 		formData.append('name', changefio);
 		formData.append('surname', changeSurname);
@@ -203,8 +213,8 @@ const phoneNumber =(changephone).replaceAll('-' ,"").replaceAll(" " , "").replac
 			})
 			.then((res) => {
 				console.log(res);
-				if(res.data){
-					GetUser()
+				if (res.data) {
+					GetUser();
 				}
 			});
 	};
@@ -224,11 +234,9 @@ const phoneNumber =(changephone).replaceAll('-' ,"").replaceAll(" " , "").replac
 
 	useEffect(() => {
 		GetUser();
-		GetIdUser(updateid)
+		GetIdUser(updateid);
 	}, [open, id, render, remove, page]);
-	useEffect(() => {
-
-	}, [edit]);
+	useEffect(() => {}, [edit]);
 
 	const HandleChangePage = useCallback((page) => {
 		setPage(page);
@@ -249,8 +257,6 @@ const phoneNumber =(changephone).replaceAll('-' ,"").replaceAll(" " , "").replac
 			.catch(() => {
 				// error()
 			});
-	
-	
 	};
 	// user?.data?.workers?.sort((a, b) => a?.wname?.localeCompare(b?.wname));
 	return (
@@ -262,7 +268,7 @@ const phoneNumber =(changephone).replaceAll('-' ,"").replaceAll(" " , "").replac
 							type='search'
 							placeholder='Search...'
 							required
-							onInput={(e)=>handleSearch(e)}
+							onInput={(e) => handleSearch(e)}
 						/>
 					</div>
 					<form action='' className='add_user_page'>
@@ -312,7 +318,11 @@ const phoneNumber =(changephone).replaceAll('-' ,"").replaceAll(" " , "").replac
 												<span>{a?.telegramUsername}</span>
 											</td>
 											<td>
-												<span>{a?.groupId?.profession +" "+a?.groupId?.groupNumber}</span>
+												<span>
+													{a?.groupId?.profession +
+														' ' +
+														a?.groupId?.groupNumber}
+												</span>
 											</td>
 											<td>
 												<span>{a?.phoneNumber}</span>
@@ -337,7 +347,6 @@ const phoneNumber =(changephone).replaceAll('-' ,"").replaceAll(" " , "").replac
 													onClick={() => {
 														setEdit(true);
 														GetIdUser(a?._id);
-														
 													}}
 												>
 													<img src={Edit} alt='EDIT_ICON' />
@@ -358,11 +367,11 @@ const phoneNumber =(changephone).replaceAll('-' ,"").replaceAll(" " , "").replac
 							: 'Yordamchi oqtuvchilar yoq'}
 					</tbody>
 				</Table>
-				{user?.total_page > 1 && (
+				{allPage >1 && (
 					<MyPagination
-						total={user?.total_page}
+						total={allPage }
 						current={page}
-						// ref={}
+						onChangePage={HandleChangePage}
 					/>
 				)}
 			</Container>
