@@ -4,6 +4,8 @@ import Humburger from '../../assets/image/humburger.svg';
 import Statistic from '../../assets/image/6. articles.svg';
 import Agent from '../../assets/image/5. agents.svg';
 import Contact from '../../assets/image/4. contacts.svg';
+import Student from '../../assets/image/student.svg';
+import Group from '../../assets/image/groupSvg.svg';
 import Svg1 from '../../assets/image/1. overview.svg';
 import Ticket from '../../assets/image/2. tickets.svg';
 import Idea from '../../assets/image/3. ideas.svg';
@@ -58,13 +60,13 @@ const Sidebar = ({ setOpen, drawer, setDrawer }) => {
 							to={'/student'}
 							onClick={() => handleId(t('card.card3'))}
 						>
-							<img src={Agent} alt='icon' />
+							<img width={17} height={17} src={Student} alt='icon' />
 							{drawer && t('card.card3')}
 						</NavLink>
 					</li>
 					<li>
 						<NavLink to='/group' onClick={() => handleId(t('aside.event'))}>
-							<img src={Agent} alt='icon' />
+							<img width={25} height={25} src={Group} alt='icon' />
 							{drawer && t('aside.event')}
 						</NavLink>
 					</li>
