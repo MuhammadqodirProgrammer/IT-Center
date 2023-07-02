@@ -13,7 +13,7 @@ export const Student = () => {
        {/* <Header/> */}
        <Routes>
 			
-						<Route path='homework' element={<StudentHomework />} />
+						<Route path='/' element={<StudentHomework />} />
 
 						<Route path='*' element={<Navigate to={'/'} />} />
 					</Routes>

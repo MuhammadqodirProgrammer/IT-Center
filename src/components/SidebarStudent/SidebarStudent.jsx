@@ -36,17 +36,11 @@ const SidebarStudent = ({ setOpen, drawer, setDrawer }) => {
 					</a>
 				</div>
 				<ul className='side_menu'>
-					<li>
-						<NavLink to={'/'} onClick={() => handleId(t('aside.statistics'))}>
-							<img src={Svg1} alt='icon' />
-							{drawer && t('aside.statistics')}
-						</NavLink>
-					</li>
 		
 
 					<li>
 						<NavLink
-							to={'/homework'}
+							to={'/'}
 							onClick={() => handleId(t('aside.homework'))}
 						>
 							<img src={Agent} alt='icon' />

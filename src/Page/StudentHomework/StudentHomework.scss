@@ -344,3 +344,110 @@
             cursor: pointer;
         }
     }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+
+        .table_head {
+            background: #323D59;
+            box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px 8px 0px 0px !important;
+            position: sticky;
+            top: 0;
+            overflow: hidden;
+
+            tr {
+                box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+                border-radius: 8px 8px 0px 0px !important;
+
+                th {
+                    border-bottom: 0 !important;
+                    padding: 24px 0;
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 14px;
+                    line-height: 18px;
+                    text-align: center;
+                    letter-spacing: 0.4px;
+                    color: #FFFFFF;
+                }
+            }
+        }
+
+        .table_body {
+            .body_tr {
+                border-bottom: 1px solid #7F73FF !important;
+                cursor: pointer;
+
+                .avatar_image {
+                    img {
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+                        object-fit: cover;
+
+                    }
+                }
+
+                span {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 50px;
+                }
+
+                td {
+                    background: #283046;
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 18px;
+                    text-align: center;
+                    letter-spacing: 0.4px;
+                    color: #FFFFFF;
+                    padding: 8px 8px;
+
+                }
+
+                &:hover {
+                    background-color: #323D59;
+
+                    td {
+                        font-weight: 400;
+                        font-size: 14px;
+                        line-height: 18px;
+                        text-align: center;
+                        letter-spacing: 0.4px;
+                        color: #FFFFFF;
+                    }
+                }
+
+                .icon_link {
+                    width: 40px;
+
+                    span {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        height: 50px;
+                        cursor: pointer;
+                    }
+                }
+
+                .lock_icon {
+                    img {
+                        width: 28px !important;
+                    }
+                }
+
+                .sms_icon {
+                    img {
+                        width: 24px !important;
+                    }
+                }
+            }
+        }
+    }
+    .table_box{
+        margin-top: 30px;
+    }
