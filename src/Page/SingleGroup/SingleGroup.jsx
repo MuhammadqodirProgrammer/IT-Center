@@ -111,7 +111,7 @@ export const SingleGroup = () => {
 							<th>{t('worker.w2')}</th>
 							<th>age</th>
 							<th>{t('worker.w5')}</th>
-							<th></th>
+							{/* <th></th> */}
 						</tr>
 					</thead>
 					<tbody className='table_body'>
@@ -143,7 +143,7 @@ export const SingleGroup = () => {
 											</td>
 
 									
-											<td className='icon_link'>
+											{/* <td className='icon_link'>
 												<span
 													onClick={() => {
 														// setEdit(true);
@@ -153,7 +153,7 @@ export const SingleGroup = () => {
 												>
 													<img src={Edit} alt='EDIT_ICON' />
 												</span>
-											</td>
+											</td> */}
 										
 										</tr>
 									))
