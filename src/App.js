@@ -19,6 +19,7 @@ import { Student } from './apps/Student';
 import Login from './Page/Login/Login';
 function App() {
 	// lang  start
+	console.log(1);
 	i18n.use(initReactI18next).init({
 		// lng: 'uz',
 		fallbackLng: localStorage.getItem('lang') || 'uz',
